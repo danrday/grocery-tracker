@@ -6,7 +6,7 @@ console.log("fulltext", text)
 let filterLength = (string) => string.length >= 5;
 
 //splits on line break and filters out empty strings
-str = text.split("<br />").filter(Boolean).filter(filterLength)
+let str = text.split("<br />").filter(Boolean).filter(filterLength)
 
 console.log("split: ", str)
 
@@ -16,6 +16,16 @@ for (i=0; i<str.length; i++) {
     price = $.map(price, function(value, index) {
         return [value];
     });
+
+    let priceIndex = str[i].search(/\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{2})/)
+
+    productId = str[i].substring(0, priceIndex)
+
+    productId = productId.trim()
+
+    console.log("productId", productId)
+
+
     console.log("final price:", price[0])
   }
 }
