@@ -3,6 +3,20 @@ let text = 'L<br /><br />W<br />210 FRANKLIN RD.<br /><br />1-615-377‘3690<br 
 
 console.log(text)
 
+
+let filterLength = (string) => string.length >= 5;
+
+//splits on line break and filters out empty strings
+str = text.split("<br />").filter(Boolean).filter(filterLength)
+
+console.log("split: ", str)
+
+
+
+
+
+
+
 $(document).ready(function() {
   Materialize.updateTextFields();
 });
