@@ -13,6 +13,18 @@ var jwt         = require('jwt-simple');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// fix cors issue
+app.use(function (req, res, next) {
+res.header("Access-Control-Allow-Origin", "*");
+res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
+if (req.method === 'OPTIONS') {
+res.end();
+} else {
+next();
+}
+});
+
 // log to console
 app.use(morgan('dev'));
 
