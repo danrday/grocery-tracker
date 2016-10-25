@@ -27,7 +27,43 @@ angular.module('starter', ['ionic'])
     url: '/inside',
     templateUrl: 'templates/inside.html',
     controller: 'InsideCtrl'
-  });
+  })
+  .state('inside.newShoppingTrip', {
+   url: '/newShoppingTrip',
+   views: {
+         // the main template will be placed here (relatively named)
+         '': { templateUrl: 'templates/newShoppingTrip/index.html', controller: 'newShoppingTripCtrl' },
+         // embedded charts
+         'scanUPC@inside.newShoppingTrip': {
+             templateUrl: 'templates/newShoppingTrip/scanUPC.html'
+         },
+         'scanReceipt@inside.newShoppingTrip': {
+             templateUrl: 'templates/newShoppingTrip/scanReceipt.html',
+             controller: 'CameraCtrl'
+         }
+       }
+     })
+   .state('inside.scanUPC', {
+     url: '/scanUPC',
+     templateUrl: 'templates/newShoppingTrip/scanUPC.html'
+   })
+   .state('inside.scanReceipt', {
+     url: '/scanReceipt',
+     templateUrl: 'templates/newShoppingTrip/scanReceipt.html'
+    //  controller: 'CameraCtrl'
+   })
+       ;
+ //   templateUrl: "templates/newShoppingTrip/index.html"
+ // })
+ //   .state('inside.newShoppingTrip.scanUPC', {
+ //    url: '/scanUPC',
+ //    templateUrl: "templates/newShoppingTrip/scanUPC.html"
+ //  })
+ //  .state('inside.newShoppingTrip.scanReceipt', {
+ //   url: '/scanReceipt',
+ //   templateUrl: "templates/newShoppingTrip/scanReceipt.html"
+  // })
+ // ;
 
   $urlRouterProvider.otherwise('/outside/login');
 })

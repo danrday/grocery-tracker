@@ -70,4 +70,11 @@ angular.module('starter')
       template: 'Sorry, You have to login again.'
     });
   });
+})
+
+.controller('newShoppingTripCtrl', function($scope) {
+  let date = new Date();
+  date = date.toString()
+  $scope.date = date
+  console.log(date.toString())
 });
