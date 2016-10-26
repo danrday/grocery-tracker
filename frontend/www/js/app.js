@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
+angular.module('starter', ['ngCordova', 'ionic'])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -32,15 +32,17 @@ angular.module('starter', ['ionic'])
    url: '/newShoppingTrip',
    views: {
          // the main template will be placed here (relatively named)
-         '': { templateUrl: 'templates/newShoppingTrip/index.html', controller: 'newShoppingTripCtrl' },
-         // embedded charts
-         'scanUPC@inside.newShoppingTrip': {
-             templateUrl: 'templates/newShoppingTrip/scanUPC.html'
-         },
-         'scanReceipt@inside.newShoppingTrip': {
-             templateUrl: 'templates/newShoppingTrip/scanReceipt.html',
-             controller: 'CameraCtrl'
-         }
+         '': { templateUrl: 'templates/newShoppingTrip/index.html', controller: 'newShoppingTripCtrl' }
+        //  ,
+        //  // embedded charts
+        //  'scanUPC@inside.newShoppingTrip': {
+        //      templateUrl: 'templates/newShoppingTrip/scanUPC.html'
+        //  }
+        //  ,
+        //  'scanReceipt@inside.newShoppingTrip': {
+        //      templateUrl: 'templates/newShoppingTrip/scanReceipt.html',
+        //      controller: 'PictureCtrl'
+        //  }
        }
      })
    .state('inside.scanUPC', {
@@ -49,8 +51,8 @@ angular.module('starter', ['ionic'])
    })
    .state('inside.scanReceipt', {
      url: '/scanReceipt',
-     templateUrl: 'templates/newShoppingTrip/scanReceipt.html'
-    //  controller: 'CameraCtrl'
+     templateUrl: 'templates/newShoppingTrip/scanReceipt.html',
+     controller: 'PictureCtrl'
    })
        ;
  //   templateUrl: "templates/newShoppingTrip/index.html"

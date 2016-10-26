@@ -77,4 +77,50 @@ angular.module('starter')
   date = date.toString()
   $scope.date = date
   console.log(date.toString())
-});
+})
+.controller('PictureCtrl', function($scope, $cordovaCamera) {
+  console.log("PICTURE CONTROLLER")
+
+  $scope.image= "test"
+
+  let image;
+
+  let loadPic = function () {
+    $scope.image = image
+  }
+
+  pictureTaken = false
+
+  document.addEventListener("deviceready", function ($scope) {
+
+    var options = {
+      quality: 50,
+      destinationType: Camera.DestinationType.DATA_URL,
+      sourceType: Camera.PictureSourceType.CAMERA,
+      allowEdit: true,
+      encodingType: Camera.EncodingType.JPEG,
+      targetWidth: 100,
+      targetHeight: 100,
+      popoverOptions: CameraPopoverOptions,
+      saveToPhotoAlbum: false,
+	  correctOrientation:true
+    };
+
+    $cordovaCamera.getPicture(options).then(function(imageData) {
+      // var image = document.getElementById('myImage');
+      console.log("TEST")
+      pictureTaken = true
+      image = "data:image/jpeg;base64," + imageData;
+      loadPic()
+      console.log("image type", typeof(image))
+      console.log("image length", image.length)
+    }, function(err) {
+      // error
+    });
+
+  }, false);
+
+
+
+
+});;
