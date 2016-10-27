@@ -1,13 +1,48 @@
 var express     = require('express');
 var app         = express();
 var bodyParser  = require('body-parser');
+                  app.use(bodyParser.json({limit: '50mb'}));
+                  app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 var morgan      = require('morgan');
 var mongoose    = require('mongoose');
-var passport	= require('passport');
+var passport	  = require('passport');
 var config      = require('./config/database'); // get db config file
 var User        = require('./app/models/user'); // get the mongoose model
 var port        = process.env.PORT || 8080;
 var jwt         = require('jwt-simple');
+
+
+// receipt parsing
+var tesseract   = require('node-tesseract');
+var multer      = require('multer');
+var fs          = require('fs');
+
+
+
+//
+
+var convert = function(req, res) {
+    var path = req.files.file.path;
+    // Recognize text of any language in any format
+    tesseract.process(path,function(err, text) {
+        if(err) {
+            console.error('tesseract convert err', err);
+        } else {
+            fs.unlink(path, function (err) {
+                if (err){
+                    res.json(500, "Error while scanning image");
+                }
+                console.log('successfully deleted %s', path);
+            });
+            res.json(200, text);
+        }
+    });
+};
+
+
+
+// //multer temp directory
+app.use(multer({dest:'./uploads/'}).none());
 
 // get our request parameters
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -44,6 +79,8 @@ require('./config/passport')(passport);
 
 // bundle our routes
 var apiRoutes = express.Router();
+
+apiRoutes.post("/ocr", convert)
 
 // create a new user account (POST http://localhost:8080/api/signup)
 apiRoutes.post('/signup', function(req, res) {
@@ -89,6 +126,67 @@ apiRoutes.post('/authenticate', function(req, res) {
   });
 });
 
+apiRoutes.post('/base64upload', function(req, res, next) {
+    console.log('setup: data', req.body.data);
+    console.log('setup: check', req.body.check);
+    console.log('setup avatar: ', req.body.avatar);
+
+    let encodeOptions = { encoding: 'base64' };
+    let wstream = fs.createWriteStream('test.jpg', encodeOptions)
+
+    wstream.write(req.body.avatar);
+    wstream.end();
+
+    tesseract.process(__dirname + '/test.jpg',function(err, text) {
+    if(err) {
+        console.error(err);
+    } else {
+        console.log("TEXT", text);
+    }
+});
+
+    // tesseract.process('test.jpg',function(err, text) {
+    //     if(err) {
+    //         console.error('tesseract convert err', err);
+    //     } else {
+    //         fs.unlink(path, function (err) {
+    //             if (err){
+    //                 res.json(500, "Error while scanning image");
+    //             }
+    //             console.log('successfully deleted %s', path);
+    //         });
+    //         // res.json(200, text);
+    //         console.log("TEXT:", text)
+    //     }
+    // });
+
+
+    res.json({
+    success:true
+    });
+});
+
+//testupload
+apiRoutes.post('/testupload', function(req, res, err) {
+
+console.log('WHOLE REQ', req)
+// console.log(req)
+
+req.pipe(fs.createWriteStream('test.jpeg'))
+
+req.on('end', () => {
+
+res.send('OK')
+
+console.log('REQ BODY:', req.body)
+
+}
+)
+
+
+});
+
+
 // route to a restricted info (GET http://localhost:8080/api/memberinfo)
 apiRoutes.get('/memberinfo', passport.authenticate('jwt', { session: false}), function(req, res) {
   var token = getToken(req.headers);
@@ -102,7 +200,7 @@ apiRoutes.get('/memberinfo', passport.authenticate('jwt', { session: false}), fu
         if (!user) {
           return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
         } else {
-          res.json({success: true, msg: 'Welcome in the member area ' + user.name + '!'});
+          res.json({success: true, msg: 'Logged in as: ' + user.name});
         }
     });
   } else {

@@ -1,0 +1,20 @@
+var process = function(req, res) {
+
+    var path = req.files.file.path;
+
+    // Recognize text of any language in any format
+    tesseract.process(path,function(err, text) {
+        if(err) {
+            console.error(err);
+        } else {
+            fs.unlink(path, function (err) {
+                if (err){
+                    res.json(500, "Error while scanning image");
+                }
+                console.log('successfully deleted %s', path);
+            });
+
+            res.json(200, text);
+        }
+    });
+};
