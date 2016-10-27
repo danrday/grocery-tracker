@@ -107,66 +107,94 @@ angular.module('starter')
 //   }
 
   document.addEventListener("deviceready", function ($scope) {
-    //
-    // var options = {
-    //   quality: 100,
-    //   destinationType: Camera.DestinationType.DATA_URL,
-    //   sourceType: Camera.PictureSourceType.CAMERA,
-    //   allowEdit: false,
-    //   encodingType: Camera.EncodingType.JPEG,
-    //   targetWidth: 250,
-    //   targetHeight: 250,
-    //   popoverOptions: CameraPopoverOptions,
-    //   saveToPhotoAlbum: false,
-	  // correctOrientation:true
-    // };
 
     var options = {
+      quality: 100,
+      destinationType: Camera.DestinationType.DATA_URL,
+      sourceType: Camera.PictureSourceType.CAMERA,
+      allowEdit: false,
       encodingType: Camera.EncodingType.JPEG,
-      targetWidth: 50,
-      targetHeight: 50
+      targetWidth: 250,
+      targetHeight: 250,
+      popoverOptions: CameraPopoverOptions,
+      saveToPhotoAlbum: false,
+	  correctOrientation:true
     };
 
-    $cordovaCamera.getPicture(options).then(function(imageData) {
+   $cordovaCamera.getPicture(options).then(function(imageData) {
 
-      // imageTextToUpload = imageData;
-      // image = imageData
-      console.log("IMAGE DATA", imageData)
+    //  var image = document.getElementById('myImage');
 
-      resolveLocalFileSystemURL(imageData, function(fe) {
-        console.log("FE.FILE", fe.file)
-	  			fe.file(function (file) {
-	  				var f = new FileReader();
-	  				f.readAsArrayBuffer(file);
-	  				f.onloadend = function () {
-	  					var x = new XMLHttpRequest();
-	  					// var user = userFactory.get()
-	  					x.open('POST', 'http://10.0.0.143:8080/api/testupload/');
-              console.log('post section')
-	  					x.addEventListener('load', function (e) {
-	  						// var events = JSON.parse(e.target.responseText)
-	  						// $scope.events = events
-	  						// $scope.$apply()
-	  					});
-	  					//changed f.result to f
-              console.log('f.result', f.result)
-	  					x.send(f.result);
-	  				}
-	  		})
-  	})
+     let base64img = "data:image/jpeg;base64," + imageData;
 
-      // imageTextToUpload = "data:image/jpeg;base64," + imageData;
-      // image = "data:image/jpeg;base64," + imageData;
+     console.log("base64img", base64img)
 
-      // loadPic()
 
-      // console.log("image type", typeof(image))
-      // console.log("image length", image.length)
-      // console.log("image:", image)
-    }, function(err) {
-      // errorc
-      console.log('error', err)
-    });
+
+           let _data = {};
+      // set test property:
+      _data.avatar = base64img;
+      console.log("data:", _data);
+      // Make an Ajax request
+      $.post('http://10.0.0.33:8080/api/base64upload', _data, function(result) {
+      console.log('result from server', result);
+      });
+
+
+
+
+   }, function(err) {
+     // error
+   });
+
+
+
+                          // var options = {
+                          //   encodingType: Camera.EncodingType.JPEG,
+                          //   targetWidth: 50,
+                          //   targetHeight: 50
+                          // };
+
+                          // $cordovaCamera.getPicture(options).then(function(imageData) {
+                          //
+                          //   // imageTextToUpload = imageData;
+                          //   // image = imageData
+                          //   console.log("IMAGE DATA", imageData)
+                          //
+                          //   resolveLocalFileSystemURL(imageData, function(fe) {
+                          //     console.log("FE.FILE", fe.file)
+                      	  // 			fe.file(function (file) {
+                      	  // 				var f = new FileReader();
+                      	  // 				f.readAsArrayBuffer(file);
+                      	  // 				f.onloadend = function () {
+                      	  // 					var x = new XMLHttpRequest();
+                      	  // 					// var user = userFactory.get()
+                      	  // 					x.open('POST', 'http://10.0.0.143:8080/api/testupload/');
+                          //           console.log('post section')
+                      	  // 					x.addEventListener('load', function (e) {
+                      	  // 						// var events = JSON.parse(e.target.responseText)
+                      	  // 						// $scope.events = events
+                      	  // 						// $scope.$apply()
+                      	  // 					});
+                      	  // 					//changed f.result to f
+                          //           console.log('f.result', f.result)
+                      	  // 					x.send(f.result);
+                      	  // 				}
+                      	  // 		})
+                        	// })
+                          //
+                          //   // imageTextToUpload = "data:image/jpeg;base64," + imageData;
+                          //   // image = "data:image/jpeg;base64," + imageData;
+                          //
+                          //   // loadPic()
+                          //
+                          //   // console.log("image type", typeof(image))
+                          //   // console.log("image length", image.length)
+                          //   // console.log("image:", image)
+                          // }, function(err) {
+                          //   // errorc
+                          //   console.log('error', err)
+                          // });
 
   }, false);
 
