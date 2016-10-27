@@ -114,8 +114,6 @@ angular.module('starter')
       sourceType: Camera.PictureSourceType.CAMERA,
       allowEdit: false,
       encodingType: Camera.EncodingType.JPEG,
-      targetWidth: 250,
-      targetHeight: 250,
       popoverOptions: CameraPopoverOptions,
       saveToPhotoAlbum: false,
 	  correctOrientation:true
@@ -125,7 +123,9 @@ angular.module('starter')
 
     //  var image = document.getElementById('myImage');
 
-     let base64img = "data:image/jpeg;base64," + imageData;
+    //  let base64img = "data:image/jpeg;base64," + imageData;
+
+     let base64img = imageData;
 
      console.log("base64img", base64img)
 
