@@ -1,0 +1,3 @@
+
+
+let base64img = 
