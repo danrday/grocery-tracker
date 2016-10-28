@@ -14,10 +14,16 @@ let parsedReceipt = []
 
 for (i=0; i<str.length; i++) {
   let price = str[i].match(/\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{2})/)
+  // console.log('price:', price)
+
   if (price !== -1 && price !== null) {
-    price = $.map(price, function(value, index) {
-        return [value];
-    });
+
+    // price = $.map(price, function(value, index) {
+    //   // console.log("value:", typeof(value))
+    //     return [value];
+    // });
+
+
     let priceIndex = str[i].search(/\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{2})/)
     productId = str[i].substring(0, priceIndex)
     productId = productId.trim()

@@ -78,7 +78,7 @@ angular.module('starter')
   $scope.date = date
   console.log(date.toString())
 })
-.controller('PictureCtrl', function($scope, Upload, $cordovaCamera) {
+.controller('PictureCtrl', function($scope, Upload, $cordovaCamera, $state) {
   console.log("PICTURE CONTROLLER")
 
   $scope.image= "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
@@ -129,19 +129,20 @@ angular.module('starter')
 
      console.log("base64img", base64img)
 
-
-
            let _data = {};
       // set test property:
       _data.avatar = base64img;
       console.log("data:", _data);
       // Make an Ajax request
       $.post('http://10.0.0.143:8080/api/base64upload', _data, function(result) {
+
       console.log('result from server', result);
+
+      //next up
+      //$scope.parsedReceipt = result.text
+      // $state.go('inside.parsedReceipt');
+
       });
-
-
-
 
    }, function(err) {
      // error

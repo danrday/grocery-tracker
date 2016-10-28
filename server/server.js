@@ -17,6 +17,9 @@ var tesseract   = require('node-tesseract');
 var multer      = require('multer');
 var fs          = require('fs');
 
+var receiptParser = require('./app/models/receipt-parser').receiptParser
+
+// console.log('typeof receiptparser', receiptParser)
 
 
 //
@@ -127,10 +130,10 @@ apiRoutes.post('/authenticate', function(req, res) {
 });
 
 apiRoutes.post('/base64upload', function(req, res, next) {
-    console.log('setup: data', req.body.data);
-    console.log('setup: check', req.body.check);
-    console.log('setup avatar: ', req.body.avatar);
-
+    // console.log('setup: data', req.body.data);
+    // console.log('setup: check', req.body.check);
+    // console.log('setup avatar: ', req.body.avatar);
+// res.send({test: 'test'});
     let encodeOptions = { encoding: 'base64' };
     let wstream = fs.createWriteStream('test.jpg', encodeOptions)
 
@@ -141,30 +144,21 @@ apiRoutes.post('/base64upload', function(req, res, next) {
     if(err) {
         console.error(err);
     } else {
-      // res.send('text :::' + text);
-        console.log("TEXT", text);
+
+      let parsedReceipt = receiptParser(text)
+
+      console.log("parsed receipt:", parsedReceipt)
+
+      // res.json({
+      // parsed: parsedReceipt
+      // });
+
+      res.send({parsed: parsedReceipt});
+
+        console.log("TEXT", typeof(text));
     }
 });
 
-    // tesseract.process('test.jpg',function(err, text) {
-    //     if(err) {
-    //         console.error('tesseract convert err', err);
-    //     } else {
-    //         fs.unlink(path, function (err) {
-    //             if (err){
-    //                 res.json(500, "Error while scanning image");
-    //             }
-    //             console.log('successfully deleted %s', path);
-    //         });
-    //         // res.json(200, text);
-    //         console.log("TEXT:", text)
-    //     }
-    // });
-
-
-    res.json({
-    success:true
-    });
 });
 
 //testupload
