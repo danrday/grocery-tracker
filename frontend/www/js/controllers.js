@@ -137,7 +137,7 @@ angular.module('starter')
       console.log("data:", _data);
       // Make an Ajax request
       $.post('http://10.0.0.143:8080/api/base64upload', _data, function(result) {
-      console.log('result from server', result);
+      console.log('result from server', result.text);
       });
 
 
