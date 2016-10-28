@@ -141,6 +141,7 @@ apiRoutes.post('/base64upload', function(req, res, next) {
     if(err) {
         console.error(err);
     } else {
+      // res.send('text :::' + text);
         console.log("TEXT", text);
     }
 });
