@@ -17,6 +17,9 @@ var tesseract   = require('node-tesseract');
 var multer      = require('multer');
 var fs          = require('fs');
 
+var receiptParser = require('./app/models/receipt-parser').receiptParser
+
+// console.log('typeof receiptparser', receiptParser)
 
 
 //
@@ -141,11 +144,18 @@ apiRoutes.post('/base64upload', function(req, res, next) {
     if(err) {
         console.error(err);
     } else {
-      res.json({
-      text: text
-      });
 
-        console.log("TEXT", text);
+      let parsedReceipt = receiptParser(text)
+
+      console.log("parsed receipt:", parsedReceipt)
+
+      // res.json({
+      // parsed: parsedReceipt
+      // });
+
+      res.send({parsed: parsedReceipt});
+
+        console.log("TEXT", typeof(text));
     }
 });
 
