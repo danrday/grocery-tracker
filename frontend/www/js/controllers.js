@@ -149,6 +149,9 @@ angular.module('starter')
   let savedLocation = document.getElementById("location");
 
   $scope.saveLocation = function(index) {
+
+    document.getElementById("saveContinue").disabled = false;
+
     console.log("INDEX", index)
     let x = document.getElementById(index);
 
