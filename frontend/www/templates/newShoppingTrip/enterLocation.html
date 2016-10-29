@@ -1,6 +1,11 @@
 Store address as it appears on receipt:
 
+
 <h3 id="location"></h3>
+
+<button id="saveContinue" disabled class="button button-full button-positive">
+Save & Continue
+</button>
 
 <div ng-repeat="row in parsedReceipt.parsed">
 
@@ -13,3 +18,17 @@ Store address as it appears on receipt:
   <button type="button" ng-click="saveLocation($index)" >Select</button>
 
  </div>
+
+ <!-- <ion-tabs class="tabs-energized tabs-icon-bottom">
+   <!-- <ion-tab title="Past Purchases" icon="ion-briefcase" href="#">
+   </ion-tab>
+
+   <ion-tab title="New Shopping Trip" icon="ion-android-cart" href="/inside/newShoppingTrip">
+   </ion-tab> -->
+
+   <ion-tab title="Save & Continue" icon="ion-ios-pricetags" href="#">
+   </ion-tab>
+
+
+
+ <!-- </ion-tabs> -->
