@@ -94,6 +94,26 @@ angular.module('starter')
             }
         };
     })
+.service('FinalReceiptService', function () {
+  
+        let finalReceipt = {
+          storeName: "",
+          address: "",
+          dateOfPurchase: "",
+          tax: "",
+          total: "",
+          purchases: []
+        }
+
+        return {
+            get: function () {
+                return finalReceipt;
+            },
+            set: function(value) {
+                finalReceipt = value;
+            }
+        };
+    })
 
 .config(function ($httpProvider) {
   $httpProvider.interceptors.push('AuthInterceptor');
