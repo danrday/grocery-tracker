@@ -140,13 +140,25 @@ angular.module('starter')
   }, false);
 
 })
-.controller('LocationCtrl', function($scope, ReceiptService) {
+.controller('LocationCtrl', function($scope, ReceiptService, FinalReceiptService) {
 
   let x = ReceiptService.get()
   $scope.parsedReceipt = x
   console.log("location control parsed:", x)
 
   let savedLocation = document.getElementById("location");
+
+  $scope.saveContinue = function() {
+
+    let finalReceipt = FinalReceiptService.get()
+
+    finalReceipt.location = savedLocation.innerHTML
+
+    console.log("finalReceipt", finalReceipt)
+
+    FinalReceiptLocation.set(finalReceipt)
+
+  }
 
   $scope.saveLocation = function(index) {
 
@@ -158,6 +170,7 @@ angular.module('starter')
     console.log("x.value", x.value)
 
     savedLocation.innerHTML = x.value
+
   }
 
 
