@@ -1,2 +1,11 @@
-HIIII
-{{parsedReceipt}}
+Store address as it appears on receipt:
+
+<div ng-repeat="row in parsedReceipt.parsed">
+
+  <textarea rows="4" cols="50">
+  {{row[0]}}
+  </textarea>
+
+  <button type="button">Select</button>
+
+ </div>
