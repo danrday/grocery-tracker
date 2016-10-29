@@ -1,1 +1,8 @@
 /* Empty. Add your own CSS if you like */
+textarea {
+  background-color: beige;
+}
+
+button {
+  background-color: yellow;
+}

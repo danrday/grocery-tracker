@@ -78,33 +78,13 @@ angular.module('starter')
   $scope.date = date
   console.log(date.toString())
 })
-.controller('PictureCtrl', function($scope, Upload, $cordovaCamera, $state) {
+.controller('PictureCtrl', function($scope, Upload, $cordovaCamera, $state, ReceiptService) {
   console.log("PICTURE CONTROLLER")
 
-  $scope.image= "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
+  $scope.image= "http://www.downgraf.com/wp-content/uploads/2014/09/01-progress.gif"
 
   let image;
   let imageTextToUpload;
-
-//   let loadPic = function () {
-//
-//     $scope.image = image
-//
-//     Upload.upload({
-//         url: 'http://10.0.0.143:8080/api/ocr',
-//         file: imageTextToUpload,
-//         fileName: "file"
-//     }).progress(function (evt) {
-//         var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-//         console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
-//     }).success(function (data, status, headers, config) {
-//         console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
-//     }).error(function (reply, status, headers) {
-//     console.log("errrrrror:", reply);
-//     console.log("errrrrror:", status);
-//     console.log("errrrrror:", headers);
-// });;
-//   }
 
   document.addEventListener("deviceready", function ($scope) {
 
@@ -134,13 +114,22 @@ angular.module('starter')
       _data.avatar = base64img;
       console.log("data:", _data);
       // Make an Ajax request
-      $.post('http://10.0.0.143:8080/api/base64upload', _data, function(result) {
+      $.post('http://10.0.0.33:8080/api/base64upload', _data, function(result) {
 
       console.log('result from server', result);
 
+      // $scope.parsedReceipt = result
+
+      // console.log("scope.parsedReceipt", $scope.parsedReceipt)
+
       //next up
-      //$scope.parsedReceipt = result.text
-      // $state.go('inside.parsedReceipt');
+      ReceiptService.set(result)
+
+      let x = ReceiptService.get()
+      //
+      console.log('ReceiptService:', x)
+
+      $state.go('inside.enterLocation');
 
       });
 
@@ -148,56 +137,25 @@ angular.module('starter')
      // error
    });
 
-
-
-                          // var options = {
-                          //   encodingType: Camera.EncodingType.JPEG,
-                          //   targetWidth: 50,
-                          //   targetHeight: 50
-                          // };
-
-                          // $cordovaCamera.getPicture(options).then(function(imageData) {
-                          //
-                          //   // imageTextToUpload = imageData;
-                          //   // image = imageData
-                          //   console.log("IMAGE DATA", imageData)
-                          //
-                          //   resolveLocalFileSystemURL(imageData, function(fe) {
-                          //     console.log("FE.FILE", fe.file)
-                      	  // 			fe.file(function (file) {
-                      	  // 				var f = new FileReader();
-                      	  // 				f.readAsArrayBuffer(file);
-                      	  // 				f.onloadend = function () {
-                      	  // 					var x = new XMLHttpRequest();
-                      	  // 					// var user = userFactory.get()
-                      	  // 					x.open('POST', 'http://10.0.0.143:8080/api/testupload/');
-                          //           console.log('post section')
-                      	  // 					x.addEventListener('load', function (e) {
-                      	  // 						// var events = JSON.parse(e.target.responseText)
-                      	  // 						// $scope.events = events
-                      	  // 						// $scope.$apply()
-                      	  // 					});
-                      	  // 					//changed f.result to f
-                          //           console.log('f.result', f.result)
-                      	  // 					x.send(f.result);
-                      	  // 				}
-                      	  // 		})
-                        	// })
-                          //
-                          //   // imageTextToUpload = "data:image/jpeg;base64," + imageData;
-                          //   // image = "data:image/jpeg;base64," + imageData;
-                          //
-                          //   // loadPic()
-                          //
-                          //   // console.log("image type", typeof(image))
-                          //   // console.log("image length", image.length)
-                          //   // console.log("image:", image)
-                          // }, function(err) {
-                          //   // errorc
-                          //   console.log('error', err)
-                          // });
-
   }, false);
+
+})
+.controller('LocationCtrl', function($scope, ReceiptService) {
+
+  let x = ReceiptService.get()
+  $scope.parsedReceipt = x
+  console.log("location control parsed:", x)
+
+  let savedLocation = document.getElementById("location");
+
+  $scope.saveLocation = function(index) {
+    console.log("INDEX", index)
+    let x = document.getElementById(index);
+
+    console.log("x.value", x.value)
+
+    savedLocation.innerHTML = x.value
+  }
 
 
 

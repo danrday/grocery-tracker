@@ -82,6 +82,19 @@ angular.module('starter')
   };
 })
 
+.service('ReceiptService', function () {
+        let receipt;
+
+        return {
+            get: function () {
+                return receipt;
+            },
+            set: function(value) {
+                receipt = value;
+            }
+        };
+    })
+
 .config(function ($httpProvider) {
   $httpProvider.interceptors.push('AuthInterceptor');
 });
