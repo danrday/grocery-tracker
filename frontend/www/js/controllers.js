@@ -78,7 +78,7 @@ angular.module('starter')
   $scope.date = date
   console.log(date.toString())
 })
-.controller('PictureCtrl', function($scope, Upload, $cordovaCamera, $state) {
+.controller('PictureCtrl', function($scope, Upload, $cordovaCamera, $state, ReceiptService) {
   console.log("PICTURE CONTROLLER")
 
   $scope.image= "http://www.downgraf.com/wp-content/uploads/2014/09/01-progress.gif"
@@ -118,8 +118,17 @@ angular.module('starter')
 
       console.log('result from server', result);
 
+      // $scope.parsedReceipt = result
+
+      // console.log("scope.parsedReceipt", $scope.parsedReceipt)
+
       //next up
-      $scope.parsedReceipt = result.parsed
+      ReceiptService.set(result)
+
+      let x = ReceiptService.get()
+      //
+      console.log('ReceiptService:', x)
+
       $state.go('inside.enterLocation');
 
       });
@@ -130,7 +139,9 @@ angular.module('starter')
 
   }, false);
 
-
-
-
+})
+.controller('LocationCtrl', function($scope, ReceiptService) {
+  let x = ReceiptService.get()
+  $scope.parsedReceipt = x
+  console.log("location control parsed:", x)
 });;
