@@ -28,7 +28,15 @@ for (let i=0; i<str.length; i++) {
     let thisItem = [productId, price[0], str[i]]
     parsedReceipt.push(thisItem)
 
+  } else {
+
+    let thisItem = [str[i]]
+    parsedReceipt.push(thisItem)
+
   }
+
+
+
 }
 
 console.log('type ofparsedReceipt', typeof(parsedReceipt))
