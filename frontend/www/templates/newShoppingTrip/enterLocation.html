@@ -1,11 +1,15 @@
 Store address as it appears on receipt:
 
+<h3 id="location"></h3>
+
 <div ng-repeat="row in parsedReceipt.parsed">
 
-  <textarea rows="4" cols="50">
-  {{row[0]}}
+  <textarea id={{$index}} class="textbox" rows="4" cols="50">
+  row[0]: {{row[0]}}
+  row: {{row}}
+  $index: {{$index}}
   </textarea>
 
-  <button type="button">Select</button>
+  <button type="button" ng-click="saveLocation($index)" >Select</button>
 
  </div>

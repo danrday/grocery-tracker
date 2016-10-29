@@ -114,7 +114,7 @@ angular.module('starter')
       _data.avatar = base64img;
       console.log("data:", _data);
       // Make an Ajax request
-      $.post('http://10.0.0.143:8080/api/base64upload', _data, function(result) {
+      $.post('http://10.0.0.33:8080/api/base64upload', _data, function(result) {
 
       console.log('result from server', result);
 
@@ -141,7 +141,23 @@ angular.module('starter')
 
 })
 .controller('LocationCtrl', function($scope, ReceiptService) {
+
   let x = ReceiptService.get()
   $scope.parsedReceipt = x
   console.log("location control parsed:", x)
+
+  let savedLocation = document.getElementById("location");
+
+  $scope.saveLocation = function(index) {
+    console.log("INDEX", index)
+    let x = document.getElementById(index);
+
+    console.log("x.value", x.value)
+
+    savedLocation.innerHTML = x.value
+  }
+
+
+
+
 });;
