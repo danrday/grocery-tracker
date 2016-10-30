@@ -1,14 +1,15 @@
-Purchased item
 
+<p id=product>Enter Product Name</p>
 
-Product Name:<p id=product> Enter Product Name</p>
+<p id=price>Enter Price</p>
 
-Price: <p id=price> Enter Product Price</p>
+<p id=memberSavings></p>
+<p id=numberOfItems></p>
+<p id=pricePerLb></p>
 
-<p id=savings></p>
-
-<button type="button" ng-click="scanUPC()">Scan UPC</button>
-
+<button id="saveContinue" ng-click="scanUPC()" disabled class="button button-full button-positive">
+Scan UPC
+</button>
 
 <button id="saveContinue" ng-click="saveContinue()" disabled class="button button-full button-positive">
 Save & Continue
@@ -16,12 +17,30 @@ Save & Continue
 
 <div ng-repeat="row in parsedReceipt">
 
+  <div id={{$index}}>
   <p>Product Id</p>
-  <textarea id={{$index}} class="textbox" rows="1" cols="40">{{row[0]}}
+  <textarea class="textbox" rows="2" cols="40">{{row[0]}}
   </textarea>
-  <p>Price $</p>
-  <textarea id={{$index}} class="textbox" rows="1" cols="40">{{row[1]}}
+
+  <p>Price $
+  <textarea class="textbox" rows="2" cols="5">{{row[1]}}
   </textarea>
+  </p>
+
+
+  <p>#</p>
+  <textarea class="textbox" rows="2" cols="40">
+  </textarea>
+
+  <p>Price per lb $</p>
+  <textarea class="textbox" rows="2" cols="5">
+  </textarea>
+
+  <p>Member Savings $</p>
+  <textarea class="textbox" rows="2" cols="5">
+  </textarea>
+
+</div>
 
   <button type="button" ng-click="saveLocation($index)" >Select</button>
 
