@@ -1,0 +1,24 @@
+Purchased item
+
+
+<p id=product></p>
+<p id=price></p>
+<p id=savings></p>
+
+
+<button id="saveContinue" ng-click="saveContinue()" disabled class="button button-full button-positive">
+Save & Continue
+</button>
+
+<div ng-repeat="row in parsedReceipt">
+
+  <p>Product Id</p>
+  <textarea id={{$index}} class="textbox" rows="1" cols="40">{{row[0]}}
+  </textarea>
+  <p>Price $</p>
+  <textarea id={{$index}} class="textbox" rows="1" cols="40">{{row[1]}}
+  </textarea>
+
+  <button type="button" ng-click="saveLocation($index)" >Select</button>
+
+ </div>

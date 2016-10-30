@@ -10,9 +10,7 @@ Save & Continue
 <div ng-repeat="row in parsedReceipt.parsed">
 
   <textarea id={{$index}} class="textbox" rows="4" cols="50">
-  row[0]: {{row[0]}}
-  row: {{row}}
-  $index: {{$index}}
+  {{row[0]}}
   </textarea>
 
   <button type="button" ng-click="saveLocation($index)" >Select</button>

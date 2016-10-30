@@ -83,6 +83,7 @@ angular.module('starter')
 })
 
 .service('ReceiptService', function () {
+  //service to save initial parsed text into array
         let receipt;
 
         return {
@@ -95,7 +96,8 @@ angular.module('starter')
         };
     })
 .service('FinalReceiptService', function () {
-  
+  //service to save to final receipt object
+
         let finalReceipt = {
           storeName: "",
           address: "",

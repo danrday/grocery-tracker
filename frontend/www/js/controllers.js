@@ -140,7 +140,7 @@ angular.module('starter')
   }, false);
 
 })
-.controller('LocationCtrl', function($scope, ReceiptService, FinalReceiptService) {
+.controller('LocationCtrl', function($scope, ReceiptService, FinalReceiptService, $state) {
 
   let x = ReceiptService.get()
   $scope.parsedReceipt = x
@@ -160,6 +160,8 @@ angular.module('starter')
 
     FinalReceiptService.set(finalReceipt)
 
+    $state.go('inside.purchasedProduct');
+
   }
 
   $scope.saveLocation = function(index) {
@@ -174,6 +176,60 @@ angular.module('starter')
     savedLocation.innerHTML = x.value
 
   }
+})
+.controller('PurchasedProductCtrl', function($scope, ReceiptService, FinalReceiptService, $state) {
+
+  let x = ReceiptService.get()
+
+  let onlyProductsWithPrices = []
+
+  for (z in x.parsed ) {
+    console.log("Z", z)
+
+    let y = x.parsed[z]
+
+    if (y.length !== 1) {
+      onlyProductsWithPrices.push(y)
+    }
+  }
+
+  $scope.parsedReceipt = onlyProductsWithPrices
+
+  console.log("onlyproductswithprices", onlyProductsWithPrices)
+
+  console.log("location control parsed:", x)
+
+
+  //
+  // let savedLocation = document.getElementById("location");
+
+  $scope.saveContinue = function() {
+
+    // let finalReceipt = FinalReceiptService.get()
+    //
+    // finalReceipt.location = savedLocation.innerHTML
+    //
+    // finalReceipt.location = finalReceipt.location.trim()
+    //
+    // console.log("finalReceipt", finalReceipt)
+    //
+    // FinalReceiptService.set(finalReceipt)
+
+  }
+  //
+  // $scope.saveLocation = function(index) {
+  //
+  //   document.getElementById("saveContinue").disabled = false;
+  //
+  //   console.log("INDEX", index)
+  //   let x = document.getElementById(index);
+  //
+  //   console.log("x.value", x.value)
+  //
+  //   savedLocation.innerHTML = x.value
+  //
+  //   $state.go('inside.purchasedProduct');
+  // }
 
 
 
