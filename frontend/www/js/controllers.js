@@ -156,7 +156,7 @@ angular.module('starter')
 
     console.log("finalReceipt", finalReceipt)
 
-    FinalReceiptLocation.set(finalReceipt)
+    FinalReceiptService.set(finalReceipt)
 
   }
 
