@@ -203,6 +203,12 @@ angular.module('starter')
   //
   // let savedLocation = document.getElementById("location");
 
+  $scope.memberSavings = function () {};
+  $scope.numberOfItems = function () {};
+  $scope.pricePerlb = function () {};
+  $scope.scanUPC = function () {};
+  $scope.scanUPC = function () {};
+
   $scope.saveContinue = function() {
 
     // let finalReceipt = FinalReceiptService.get()

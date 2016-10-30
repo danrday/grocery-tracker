@@ -1,9 +1,13 @@
 Purchased item
 
 
-<p id=product></p>
-<p id=price></p>
+Product Name:<p id=product> Enter Product Name</p>
+
+Price: <p id=price> Enter Product Price</p>
+
 <p id=savings></p>
+
+<button type="button" ng-click="scanUPC()">Scan UPC</button>
 
 
 <button id="saveContinue" ng-click="saveContinue()" disabled class="button button-full button-positive">
@@ -20,5 +24,11 @@ Save & Continue
   </textarea>
 
   <button type="button" ng-click="saveLocation($index)" >Select</button>
+
+  <button type="button" ng-click="memberSavings($index)" >Member Savings</button>
+
+  <button type="button" ng-click="numberOfItems($index)" >#</button>
+
+  <button type="button" ng-click="pricePerLb($index)" >$/lb</button>
 
  </div>
