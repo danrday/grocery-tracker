@@ -272,20 +272,31 @@ angular.module('starter')
     // FinalReceiptService.set(finalReceipt)
 
   }
-  //
-  // $scope.saveLocation = function(index) {
-  //
-  //   document.getElementById("saveContinue").disabled = false;
-  //
-  //   console.log("INDEX", index)
-  //   let x = document.getElementById(index);
-  //
-  //   console.log("x.value", x.value)
-  //
-  //   savedLocation.innerHTML = x.value
-  //
-  //   $state.go('inside.purchasedProduct');
-  // }
+
+  $scope.selectTextFields = function(index) {
+
+    console.log("INDEX", index)
+    // let x = document.getElementById(index);
+
+    let product = document.getElementById('product');
+    let price = document.getElementById('price');
+    let memberSavings = document.getElementById('memberSavings');
+    let numberOfItems = document.getElementById('numberOfItems');
+    let pricePerPound = document.getElementById('pricePerPound');
+
+    product.innerHTML = document.getElementById(`productID-${index}`).value;
+    price.innerHTML = document.getElementById(`price-${index}`).value;
+    memberSavings.innerHTML = document.getElementById(`memberSavings-${index}`).value;
+    numberOfItems.innerHTML = document.getElementById(`numberOfItems-${index}`).value;
+    pricePerPound.innerHTML = document.getElementById(`pricePerPound-${index}`).value;
+
+    console.log('pricePerPound', pricePerPound)
+
+
+
+
+    // $state.go('inside.purchasedProduct');
+  }
 
 
 

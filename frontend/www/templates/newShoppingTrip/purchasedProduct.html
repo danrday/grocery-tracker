@@ -1,11 +1,11 @@
 
-<p id=product>Enter Product Name</p>
+<p id='product'>Enter Product Name</p>
 
-<p id=price>Enter Price</p>
+<p id='price'>Enter Price</p>
 
-<p id=memberSavings></p>
-<p id=numberOfItems></p>
-<p id=pricePerLb></p>
+<p id='memberSavings'></p>
+<p id='numberOfItems'></p>
+<p id='pricePerPound'></p>
 
 <button id="saveContinue" ng-click="scanUPC()" disabled class="button button-full button-positive">
 Scan UPC
@@ -18,11 +18,11 @@ Save & Continue
 <div ng-repeat="row in parsedReceipt">
 
   <div id={{$index}}>
-  <p>Product Id</p>
+  <p id="productID-{{$index}}"> Product Id</p>
   <textarea class="textbox" rows="2" cols="40">{{row[0]}}
   </textarea>
 
-  <p>Price $
+  <p id="price-{{$index}}">Price $
   <textarea class="textbox" rows="2" cols="5">{{row[1]}}
   </textarea>
   </p>
@@ -44,7 +44,7 @@ Save & Continue
 
 </div>
 
-  <button type="button" ng-click="saveLocation($index)" >Select</button>
+  <button type="button" ng-click="selectTextFields($index)" >Select</button>
 
   <button type="button" ng-click="memberSavings($index)" >Savings</button>
 
