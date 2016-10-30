@@ -154,6 +154,8 @@ angular.module('starter')
 
     finalReceipt.location = savedLocation.innerHTML
 
+    finalReceipt.location = finalReceipt.location.trim()
+
     console.log("finalReceipt", finalReceipt)
 
     FinalReceiptService.set(finalReceipt)
