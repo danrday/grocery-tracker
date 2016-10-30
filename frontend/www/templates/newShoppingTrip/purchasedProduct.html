@@ -27,27 +27,29 @@ Save & Continue
   </textarea>
   </p>
 
-
-  <p>#</p>
+  <p id="numberOfItems-{{$index}}" class="productOptions">#
   <textarea class="textbox" rows="2" cols="40">
   </textarea>
+  </p>
 
-  <p>Price per lb $</p>
+  <p id="pricePerPound-{{$index}}" class="productOptions">Price per lb $
   <textarea class="textbox" rows="2" cols="5">
   </textarea>
+  </p>
 
-  <p>Member Savings $</p>
+  <p id="memberSavings-{{$index}}" class="productOptions">Member Savings $
   <textarea class="textbox" rows="2" cols="5">
   </textarea>
+  </p>
 
 </div>
 
   <button type="button" ng-click="saveLocation($index)" >Select</button>
 
-  <button type="button" ng-click="memberSavings($index)" >Member Savings</button>
+  <button type="button" ng-click="memberSavings($index)" >Savings</button>
 
-  <button type="button" ng-click="numberOfItems($index)" >#</button>
+  <button type="button" ng-click="numberOfItems($index)">#</button>
 
-  <button type="button" ng-click="pricePerLb($index)" >$/lb</button>
+  <button type="button" ng-click="pricePerPound($index)" >$/lb</button>
 
  </div>

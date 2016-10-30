@@ -201,11 +201,61 @@ angular.module('starter')
 
 
   //
-  // let savedLocation = document.getElementById("location");
 
-  $scope.memberSavings = function () {};
-  $scope.numberOfItems = function () {};
-  $scope.pricePerlb = function () {};
+  $scope.memberSavings = function (index) {
+
+    let memberSavingsEl = document.getElementById(`memberSavings-${index}`);
+
+    console.log('memberSavings', memberSavingsEl)
+
+    let x = memberSavingsEl.style.display
+
+    if (x === 'none' || x === '') {
+      console.log('one')
+      memberSavingsEl.style.display = 'inline-block'
+    } else {
+      console.log('two')
+      memberSavingsEl.style.display = 'none'
+    }
+
+    console.log('memberSavings', memberSavingsEl.style.display)
+
+    // toggleOption.toggle()
+
+  };
+  $scope.numberOfItems = function (index) {
+
+    let numberOfItems = document.getElementById(`numberOfItems-${index}`);
+
+    console.log('numberOfItems', numberOfItems)
+
+    let x = numberOfItems.style.display
+
+    if (x === 'none' || x === '') {
+      console.log('one')
+      numberOfItems.style.display = 'inline-block'
+    } else {
+      console.log('two')
+      numberOfItems.style.display = 'none'
+    }
+
+  };
+  $scope.pricePerPound = function (index) {
+    let pricePerPound = document.getElementById(`pricePerPound-${index}`);
+
+    console.log('pricePerPound', pricePerPound)
+
+    let x = pricePerPound.style.display
+
+    if (x === 'none' || x === '') {
+      console.log('one')
+      pricePerPound.style.display = 'inline-block'
+    } else {
+      console.log('two')
+      pricePerPound.style.display = 'none'
+    }
+
+  };
   $scope.scanUPC = function () {};
   $scope.scanUPC = function () {};
 
