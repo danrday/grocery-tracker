@@ -59,6 +59,11 @@ angular.module('starter', ['ngCordova', 'ngFileUpload', 'ionic'])
      templateUrl: 'templates/newShoppingTrip/enterLocation.html',
      controller: 'LocationCtrl'
    })
+   .state('inside.purchasedProduct', {
+     url: '/purchasedProduct',
+     templateUrl: 'templates/newShoppingTrip/purchasedProduct.html',
+     controller: 'PurchasedProductCtrl'
+   })
        ;
  //   templateUrl: "templates/newShoppingTrip/index.html"
  // })

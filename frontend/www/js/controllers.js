@@ -140,7 +140,7 @@ angular.module('starter')
   }, false);
 
 })
-.controller('LocationCtrl', function($scope, ReceiptService, FinalReceiptService) {
+.controller('LocationCtrl', function($scope, ReceiptService, FinalReceiptService, $state) {
 
   let x = ReceiptService.get()
   $scope.parsedReceipt = x
@@ -154,9 +154,13 @@ angular.module('starter')
 
     finalReceipt.location = savedLocation.innerHTML
 
+    finalReceipt.location = finalReceipt.location.trim()
+
     console.log("finalReceipt", finalReceipt)
 
     FinalReceiptService.set(finalReceipt)
+
+    $state.go('inside.purchasedProduct');
 
   }
 
@@ -171,6 +175,127 @@ angular.module('starter')
 
     savedLocation.innerHTML = x.value
 
+  }
+})
+.controller('PurchasedProductCtrl', function($scope, ReceiptService, FinalReceiptService, $state) {
+
+  let x = ReceiptService.get()
+
+  let onlyProductsWithPrices = []
+
+  for (z in x.parsed ) {
+    console.log("Z", z)
+
+    let y = x.parsed[z]
+
+    if (y.length !== 1) {
+      onlyProductsWithPrices.push(y)
+    }
+  }
+
+  $scope.parsedReceipt = onlyProductsWithPrices
+
+  console.log("onlyproductswithprices", onlyProductsWithPrices)
+
+  console.log("location control parsed:", x)
+
+
+  //
+
+  $scope.memberSavings = function (index) {
+
+    let memberSavingsEl = document.getElementById(`memberSavings-${index}`);
+
+    console.log('memberSavings', memberSavingsEl)
+
+    let x = memberSavingsEl.style.display
+
+    if (x === 'none' || x === '') {
+      console.log('one')
+      memberSavingsEl.style.display = 'inline-block'
+    } else {
+      console.log('two')
+      memberSavingsEl.style.display = 'none'
+    }
+
+    console.log('memberSavings', memberSavingsEl.style.display)
+
+    // toggleOption.toggle()
+
+  };
+  $scope.numberOfItems = function (index) {
+
+    let numberOfItems = document.getElementById(`numberOfItems-${index}`);
+
+    console.log('numberOfItems', numberOfItems)
+
+    let x = numberOfItems.style.display
+
+    if (x === 'none' || x === '') {
+      console.log('one')
+      numberOfItems.style.display = 'inline-block'
+    } else {
+      console.log('two')
+      numberOfItems.style.display = 'none'
+    }
+
+  };
+  $scope.pricePerPound = function (index) {
+    let pricePerPound = document.getElementById(`pricePerPound-${index}`);
+
+    console.log('pricePerPound', pricePerPound)
+
+    let x = pricePerPound.style.display
+
+    if (x === 'none' || x === '') {
+      console.log('one')
+      pricePerPound.style.display = 'inline-block'
+    } else {
+      console.log('two')
+      pricePerPound.style.display = 'none'
+    }
+
+  };
+  $scope.scanUPC = function () {};
+  $scope.scanUPC = function () {};
+
+  $scope.saveContinue = function() {
+
+    // let finalReceipt = FinalReceiptService.get()
+    //
+    // finalReceipt.location = savedLocation.innerHTML
+    //
+    // finalReceipt.location = finalReceipt.location.trim()
+    //
+    // console.log("finalReceipt", finalReceipt)
+    //
+    // FinalReceiptService.set(finalReceipt)
+
+  }
+
+  $scope.selectTextFields = function(index) {
+
+    console.log("INDEX", index)
+    // let x = document.getElementById(index);
+
+    let product = document.getElementById('product');
+    let price = document.getElementById('price');
+    let memberSavings = document.getElementById('memberSavings');
+    let numberOfItems = document.getElementById('numberOfItems');
+    let pricePerPound = document.getElementById('pricePerPound');
+
+    product.innerHTML = document.getElementById(`productID-${index}`).value;
+    price.innerHTML = document.getElementById(`price-${index}`).value;
+    memberSavings.innerHTML = document.getElementById(`memberSavings-${index}`).value;
+    numberOfItems.innerHTML = document.getElementById(`numberOfItems-${index}`).value;
+    pricePerPound.innerHTML = document.getElementById(`pricePerPound-${index}`).value;
+
+    console.log('pricePerPound', pricePerPound)
+
+
+
+
+    // $state.go('inside.purchasedProduct');
   }
 
 

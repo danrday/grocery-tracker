@@ -6,3 +6,7 @@ textarea {
 button {
   background-color: yellow;
 }
+
+p.productOptions {
+  display: none;
+}
