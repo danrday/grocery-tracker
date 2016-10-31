@@ -100,7 +100,7 @@ angular.module('starter')
 
         let finalReceipt = {
           storeName: "",
-          address: "",
+          location: "",
           dateOfPurchase: "",
           tax: "",
           total: "",

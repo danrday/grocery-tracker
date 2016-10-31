@@ -7,7 +7,7 @@
 <p id='numberOfItems'></p>
 <p id='pricePerPound'></p>
 
-<button id="saveContinue" ng-click="scanUPC()" disabled class="button button-full button-positive">
+<button id="scanUPC" ng-click="scanUPC()" disabled class="button button-full button-positive">
 Scan UPC
 </button>
 
@@ -29,17 +29,17 @@ Save & Continue
   </p>
 
   <p id="numberOfItems-{{$index}}" class="productOptions">#
-  <textarea id="text-numberOfItems-{{$index}}" value="" class="textbox" rows="2" cols="40">
+  <textarea id="text-numberOfItems-{{$index}}" class="textbox" rows="2" cols="40">
   </textarea>
   </p>
 
   <p id="pricePerPound-{{$index}}" class="productOptions">Price per lb $
-  <textarea id="text-pricePerPound-{{$index}}" value="" class="textbox" rows="2" cols="5">
+  <textarea id="text-pricePerPound-{{$index}}" class="textbox" rows="2" cols="5">
   </textarea>
   </p>
 
   <p id="memberSavings-{{$index}}" class="productOptions">Member Savings $
-  <textarea id="text-memberSavings-{{$index}}" value="" class="textbox" rows="2" cols="5">
+  <textarea id="text-memberSavings-{{$index}}" class="textbox" rows="2" cols="5">
   </textarea>
   </p>
 

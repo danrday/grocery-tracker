@@ -259,21 +259,11 @@ angular.module('starter')
   $scope.scanUPC = function () {};
   $scope.scanUPC = function () {};
 
-  $scope.saveContinue = function() {
-
-    let finalReceipt = FinalReceiptService.get()
-    //
-    // finalReceipt.location = savedLocation.innerHTML
-    //
-    // finalReceipt.location = finalReceipt.location.trim()
-    //
-    // console.log("finalReceipt", finalReceipt)
-    //
-    FinalReceiptService.set(finalReceipt)
-
-  }
+  let newItem = {}
 
   $scope.selectTextFields = function(index) {
+
+    document.getElementById("saveContinue").disabled = false;
 
     console.log("INDEX", index)
     // let x = document.getElementById(index);
@@ -284,8 +274,11 @@ angular.module('starter')
     let numberOfItems = document.getElementById('numberOfItems');
     let pricePerPound = document.getElementById('pricePerPound');
 
-    product.innerHTML = 'Product:' + document.getElementById(`text-productID-${index}`).value;
-    price.innerHTML = 'Price:' + document.getElementById(`text-price-${index}`).value;
+    let finalProduct = document.getElementById(`text-productID-${index}`).value;
+    let finalPrice = document.getElementById(`text-price-${index}`).value;
+
+    product.innerHTML = 'Product:' + finalProduct
+    price.innerHTML = 'Price:' + finalPrice
 
     console.log("VALUE", document.getElementById(`text-memberSavings-${index}`).value)
 
@@ -308,10 +301,36 @@ angular.module('starter')
         pricePerPound.innerHTML = 'Price per lb: ' + document.getElementById(`text-pricePerPound-${index}`).value;
     }
 
+    newItem = {
+      product: finalProduct,
+      price: finalPrice,
+      memberSavings: xx,
+      numberOfItems: yy,
+      pricePerPound: zz
+    }
+
     // $state.go('inside.purchasedProduct');
   }
 
 
+  $scope.saveContinue = function() {
 
+    let finalReceipt = FinalReceiptService.get()
+
+    finalReceipt.purchases.push(newItem)
+    //
+    // finalReceipt.location = savedLocation.innerHTML
+    //
+    // finalReceipt.location = finalReceipt.location.trim()
+    //
+    // console.log("finalReceipt", finalReceipt)
+    //
+    FinalReceiptService.set(finalReceipt)
+
+    let test = FinalReceiptService.get()
+
+    console.log('finalReceipt!!', test)
+
+  }
 
 });;
