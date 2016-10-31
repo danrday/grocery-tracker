@@ -187,6 +187,39 @@ angular.module('starter')
   //
   // let savedLocation = document.getElementById("location");
   //
+
+  let x = ReceiptService.get()
+
+  x = x.parsed
+
+  console.log('x.parsed', x)
+
+  x.forEach(function(line) {
+
+    let y = line[0].toLowerCase()
+    if (y.includes("tax") && line.length > 1) {
+      console.log("TAX", line[1])
+      document.getElementById("tax").value = line[1];
+    } else if (y.includes("balance") || y.includes("purchase") && line.length > 1) {
+      console.log("BALANCE", line[1])
+      document.getElementById("total").value = line[1];
+    }
+
+  })
+
+  //
+  // for each(line in x) {
+  //
+  //   console.log("line", line)
+  //   let y = line[0].toLowerCase()
+  //   if (y.includes("tax") && line.length > 1) {
+  //     console.log("TAX", line[1])
+  //   } else if (y.includes("balance") || y.includes("purchase") && line.length > 1) {
+  //     console.log("BALANCE", line[1])
+  //   }
+  // }
+
+
   $scope.saveContinue = function() {
 
     let finalReceipt = FinalReceiptService.get()
@@ -219,7 +252,7 @@ angular.module('starter')
   //
   // }
 })
-.controller('PurchasedProductCtrl', function($scope, ReceiptService, FinalReceiptService, $state) {
+.controller('PurchasedProductCtrl', function($scope, $cordovaBarcodeScanner, ReceiptService, FinalReceiptService, $state) {
 
   let x = ReceiptService.get()
 
@@ -298,8 +331,6 @@ angular.module('starter')
     }
 
   };
-  $scope.scanUPC = function () {};
-  $scope.scanUPC = function () {};
 
   let newItem = {}
 
@@ -365,6 +396,8 @@ angular.module('starter')
 
   $scope.saveContinue = function() {
 
+    document.getElementById('scanUPC').style.display = "block";
+
     document.getElementById("product").innerHTML = "";
     document.getElementById("price").innerHTML = "";
     document.getElementById("memberSavings").innerHTML = "";
@@ -405,6 +438,20 @@ angular.module('starter')
 
   }
 
+  let upcCode = null;
+
+  $scope.scanUPC = function () {
+    $cordovaBarcodeScanner
+      .scan()
+      .then(function(barcodeData) {
+        console.log("barcode data:", barcodeData)
+          document.getElementById('scanUPC').style.display = "none";
+        // Success! Barcode data is here
+      }, function(error) {
+        // An error occurred
+      });
+  }
+
   $scope.done = function () {
     $state.go('inside.categories');
   }
@@ -420,8 +467,29 @@ angular.module('starter')
 
     $scope.save = function (index) {
       let cat = document.getElementById(`category-${index}`).value
-      finalReceipt.purchases[index].category = cat
-      $scope.savedCategories.push(cat)
+
+      $scope.savedCategories[index] = cat
+
+      let e = document.getElementById(`catOption-${index}`);
+
+      console.log('e', e)
+        console.log('e.options', e.options)
+
+      let selectedOption = e.options[e.selectedIndex].value;
+
+      if (selectedOption !== "notSelected") {
+
+        finalReceipt.purchases[index].category = selectedOption
+      } else {
+        finalReceipt.purchases[index].category = cat
+      }
+
+      document.getElementById(index).style.display = "none";
+
+      FinalReceiptService.set(finalReceipt)
+
+      console.log("finalReceipt:::", finalReceipt)
+
     }
 
 });;
