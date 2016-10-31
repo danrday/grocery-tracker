@@ -226,9 +226,9 @@ angular.module('starter')
 
     let finalReceipt = FinalReceiptService.get()
 
-    finalReceipt.total = document.getElementById('total').value.trim()
+    finalReceipt.total = parseFloat(document.getElementById('total').value.trim())
 
-    finalReceipt.tax = document.getElementById('tax').value.trim()
+    finalReceipt.tax = parseFloat(document.getElementById('tax').value.trim())
 
     finalReceipt.dateOfPurchase = new Date()
 
@@ -385,10 +385,10 @@ angular.module('starter')
 
     newItem = {
       product: finalProduct,
-      price: finalPrice,
-      memberSavings: xx,
-      numberOfItems: yy,
-      pricePerPound: zz
+      price: parseFloat(finalPrice),
+      memberSavings: parseFloat(xx),
+      numberOfItems: parseFloat(yy),
+      pricePerPound: parseFloat(zz)
     }
 
     // $state.go('inside.purchasedProduct');
@@ -431,7 +431,7 @@ angular.module('starter')
 
     let finalReceipt = FinalReceiptService.get()
 
-    newItem.upcCode = upcCode
+    newItem.upcCode = parseFloat(upcCode)
 
     finalReceipt.purchases.push(newItem)
     //
