@@ -1,0 +1,17 @@
+<div ng-repeat="row in purchases">
+
+  <div id={{$index}}>
+
+  <p id="productID-{{$index}}"> {{row.product}} CATEGORY
+  <textarea id="category-{{$index}}" class="textbox" rows="2" cols="40">
+  </textarea>
+  </p>
+
+  <select>
+  <option value="notSelected">Select Category</option>
+  <option ng-repeat="option in savedCategories" value="{{option}}">{{option}}</option>
+  </select>
+
+  <button type="button" ng-click="save($index)" >SAVE</button>
+
+</div>

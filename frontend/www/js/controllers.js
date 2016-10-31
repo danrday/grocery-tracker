@@ -114,7 +114,7 @@ angular.module('starter')
       _data.avatar = base64img;
       console.log("data:", _data);
       // Make an Ajax request
-      $.post('http://10.0.0.33:8080/api/base64upload', _data, function(result) {
+      $.post('http://10.0.0.143:8080/api/base64upload', _data, function(result) {
 
       console.log('result from server', result);
 
@@ -160,7 +160,7 @@ angular.module('starter')
 
     FinalReceiptService.set(finalReceipt)
 
-    $state.go('inside.purchasedProduct');
+    $state.go('inside.taxAndTotal');
 
   }
 
@@ -176,6 +176,48 @@ angular.module('starter')
     savedLocation.innerHTML = x.value
 
   }
+
+
+})
+.controller('TotalCtrl', function($scope, ReceiptService, FinalReceiptService, $state) {
+
+  // let x = ReceiptService.get()
+  // $scope.parsedReceipt = x
+  // console.log("location control parsed:", x)
+  //
+  // let savedLocation = document.getElementById("location");
+  //
+  $scope.saveContinue = function() {
+
+    let finalReceipt = FinalReceiptService.get()
+
+    finalReceipt.total = document.getElementById('total').value
+
+    finalReceipt.tax = document.getElementById('tax').value
+    //
+    // finalReceipt.total = finalReceipt.total.trim()
+    // finalReceipt.tax = finalReceipt.tax.trim()
+
+    console.log("finalReceipt", finalReceipt)
+
+    FinalReceiptService.set(finalReceipt)
+
+    $state.go('inside.purchasedProduct');
+
+  }
+  //
+  // $scope.saveLocation = function(index) {
+  //
+  //   document.getElementById("saveContinue").disabled = false;
+  //
+  //   console.log("INDEX", index)
+  //   let x = document.getElementById(index);
+  //
+  //   console.log("x.value", x.value)
+  //
+  //   savedLocation.innerHTML = x.value
+  //
+  // }
 })
 .controller('PurchasedProductCtrl', function($scope, ReceiptService, FinalReceiptService, $state) {
 
@@ -259,21 +301,15 @@ angular.module('starter')
   $scope.scanUPC = function () {};
   $scope.scanUPC = function () {};
 
-  $scope.saveContinue = function() {
+  let newItem = {}
 
-    // let finalReceipt = FinalReceiptService.get()
-    //
-    // finalReceipt.location = savedLocation.innerHTML
-    //
-    // finalReceipt.location = finalReceipt.location.trim()
-    //
-    // console.log("finalReceipt", finalReceipt)
-    //
-    // FinalReceiptService.set(finalReceipt)
-
-  }
+  let selectedIndex;
 
   $scope.selectTextFields = function(index) {
+
+    selectedIndex = index
+
+    document.getElementById("saveContinue").disabled = false;
 
     console.log("INDEX", index)
     // let x = document.getElementById(index);
@@ -284,21 +320,108 @@ angular.module('starter')
     let numberOfItems = document.getElementById('numberOfItems');
     let pricePerPound = document.getElementById('pricePerPound');
 
-    product.innerHTML = document.getElementById(`productID-${index}`).value;
-    price.innerHTML = document.getElementById(`price-${index}`).value;
-    memberSavings.innerHTML = document.getElementById(`memberSavings-${index}`).value;
-    numberOfItems.innerHTML = document.getElementById(`numberOfItems-${index}`).value;
-    pricePerPound.innerHTML = document.getElementById(`pricePerPound-${index}`).value;
+    let finalProduct = document.getElementById(`text-productID-${index}`).value;
+    let finalPrice = document.getElementById(`text-price-${index}`).value;
 
-    console.log('pricePerPound', pricePerPound)
+    product.innerHTML = 'Product:' + finalProduct
+    price.innerHTML = 'Price:' + finalPrice
 
+    console.log("VALUE", document.getElementById(`text-memberSavings-${index}`).value)
 
+    let xx = document.getElementById(`text-memberSavings-${index}`).value
+    let yy = document.getElementById(`text-numberOfItems-${index}`).value
+    let zz = document.getElementById(`text-pricePerPound-${index}`).value
+    xx = xx.trim()
+    yy = yy.trim()
+    zz = zz.trim()
 
+    if (xx.length !== 0) {
+      memberSavings.innerHTML = 'Member Savings: ' + document.getElementById(`text-memberSavings-${index}`).value;
+    }
+
+    if (yy.length !== 0) {
+      numberOfItems.innerHTML = '# items: ' + document.getElementById(`text-numberOfItems-${index}`).value;
+    }
+
+    if (zz.length !== 0) {
+        pricePerPound.innerHTML = 'Price per lb: ' + document.getElementById(`text-pricePerPound-${index}`).value;
+    }
+
+    newItem = {
+      product: finalProduct,
+      price: finalPrice,
+      memberSavings: xx,
+      numberOfItems: yy,
+      pricePerPound: zz
+    }
 
     // $state.go('inside.purchasedProduct');
   }
 
 
+  $scope.delete = function(index) {
+    document.getElementById(index).style.display = "none";
+  }
 
+  $scope.saveContinue = function() {
+
+    document.getElementById("product").innerHTML = "";
+    document.getElementById("price").innerHTML = "";
+    document.getElementById("memberSavings").innerHTML = "";
+    document.getElementById("numberOfItems").innerHTML = "";
+    document.getElementById("pricePerPound").innerHTML = "";
+
+    document.getElementById("saveContinue").disabled = true;
+
+    document.getElementById(selectedIndex).style.display = "none";
+
+    let finalReceipt = FinalReceiptService.get()
+
+    finalReceipt.purchases.push(newItem)
+    //
+    // finalReceipt.location = savedLocation.innerHTML
+    //
+    // finalReceipt.location = finalReceipt.location.trim()
+    //
+    // console.log("finalReceipt", finalReceipt)
+    //
+    FinalReceiptService.set(finalReceipt)
+
+    let test = FinalReceiptService.get()
+
+    console.log('finalReceipt!!', test)
+
+  }
+
+  $scope.addProduct = function() {
+
+    document.getElementById('text-productID-0').value = ""
+    document.getElementById('text-price-0').value = ""
+    document.getElementById('text-numberOfItems-0').value = ""
+    document.getElementById('text-pricePerPound-0').value = ""
+    document.getElementById('text-memberSavings-0').value = ""
+
+    document.getElementById(0).style.display = "block";
+
+  }
+
+  $scope.done = function () {
+    $state.go('inside.categories');
+  }
+
+})
+.controller('CategoriesCtrl', function($scope, FinalReceiptService, $state) {
+
+    let finalReceipt = FinalReceiptService.get()
+
+    $scope.purchases = finalReceipt.purchases
+
+    $scope.savedCategories = []
+
+    $scope.save = function (index) {
+      let cat = document.getElementById(`category-${index}`).value
+      finalReceipt.purchases[index].category = cat
+      $scope.savedCategories.push(cat)
+    }
 
 });;
