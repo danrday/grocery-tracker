@@ -226,9 +226,9 @@ angular.module('starter')
 
     let finalReceipt = FinalReceiptService.get()
 
-    finalReceipt.total = document.getElementById('total').value
+    finalReceipt.total = document.getElementById('total').value.trim()
 
-    finalReceipt.tax = document.getElementById('tax').value
+    finalReceipt.tax = document.getElementById('tax').value.trim()
 
     finalReceipt.dateOfPurchase = new Date()
 
@@ -356,8 +356,8 @@ angular.module('starter')
     let numberOfItems = document.getElementById('numberOfItems');
     let pricePerPound = document.getElementById('pricePerPound');
 
-    let finalProduct = document.getElementById(`text-productID-${index}`).value;
-    let finalPrice = document.getElementById(`text-price-${index}`).value;
+    let finalProduct = document.getElementById(`text-productID-${index}`).value.trim();
+    let finalPrice = document.getElementById(`text-price-${index}`).value.trim();
 
     product.innerHTML = 'Product:' + finalProduct
     price.innerHTML = 'Price:' + finalPrice
