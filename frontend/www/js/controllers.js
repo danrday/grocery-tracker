@@ -154,7 +154,7 @@ angular.module('starter')
 
     finalReceipt.location = savedLocation.innerHTML
 
-    finalReceipt.storeName = document.getElementById("storeName").value
+    finalReceipt.storeName = document.getElementById("storeName").value.toUpperCase()
 
     finalReceipt.location = finalReceipt.location.trim()
 
@@ -175,7 +175,7 @@ angular.module('starter')
 
     console.log("x.value", x.value)
 
-    savedLocation.innerHTML = x.value
+    savedLocation.innerHTML = x.value.toUpperCase()
 
   }
 
@@ -356,7 +356,7 @@ angular.module('starter')
     let numberOfItems = document.getElementById('numberOfItems');
     let pricePerPound = document.getElementById('pricePerPound');
 
-    let finalProduct = document.getElementById(`text-productID-${index}`).value.trim();
+    let finalProduct = document.getElementById(`text-productID-${index}`).value.toUpperCase().trim();
     let finalPrice = document.getElementById(`text-price-${index}`).value.trim();
 
     product.innerHTML = 'Product:' + finalProduct
