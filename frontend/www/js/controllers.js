@@ -160,7 +160,7 @@ angular.module('starter')
 
     FinalReceiptService.set(finalReceipt)
 
-    $state.go('inside.purchasedProduct');
+    $state.go('inside.taxAndTotal');
 
   }
 
@@ -176,6 +176,48 @@ angular.module('starter')
     savedLocation.innerHTML = x.value
 
   }
+
+
+})
+.controller('TotalCtrl', function($scope, ReceiptService, FinalReceiptService, $state) {
+
+  // let x = ReceiptService.get()
+  // $scope.parsedReceipt = x
+  // console.log("location control parsed:", x)
+  //
+  // let savedLocation = document.getElementById("location");
+  //
+  $scope.saveContinue = function() {
+
+    let finalReceipt = FinalReceiptService.get()
+
+    finalReceipt.total = document.getElementById('total').value
+
+    finalReceipt.tax = document.getElementById('tax').value
+    // 
+    // finalReceipt.total = finalReceipt.total.trim()
+    // finalReceipt.tax = finalReceipt.tax.trim()
+
+    console.log("finalReceipt", finalReceipt)
+
+    FinalReceiptService.set(finalReceipt)
+
+    $state.go('inside.purchasedProduct');
+
+  }
+  //
+  // $scope.saveLocation = function(index) {
+  //
+  //   document.getElementById("saveContinue").disabled = false;
+  //
+  //   console.log("INDEX", index)
+  //   let x = document.getElementById(index);
+  //
+  //   console.log("x.value", x.value)
+  //
+  //   savedLocation.innerHTML = x.value
+  //
+  // }
 })
 .controller('PurchasedProductCtrl', function($scope, ReceiptService, FinalReceiptService, $state) {
 
@@ -261,7 +303,11 @@ angular.module('starter')
 
   let newItem = {}
 
+  let selectedIndex;
+
   $scope.selectTextFields = function(index) {
+
+    selectedIndex = index
 
     document.getElementById("saveContinue").disabled = false;
 
@@ -313,7 +359,15 @@ angular.module('starter')
   }
 
 
+  $scope.delete = function(index) {
+    document.getElementById(index).style.display = "none";
+  }
+
   $scope.saveContinue = function() {
+
+    document.getElementById("saveContinue").disabled = true;
+
+    document.getElementById(selectedIndex).style.display = "none";
 
     let finalReceipt = FinalReceiptService.get()
 
