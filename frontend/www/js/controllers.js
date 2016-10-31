@@ -154,7 +154,7 @@ angular.module('starter')
 
     finalReceipt.location = savedLocation.innerHTML
 
-    finalReceipt.storeName = document.getElementById("storeName").value
+    finalReceipt.storeName = document.getElementById("storeName").value.toUpperCase()
 
     finalReceipt.location = finalReceipt.location.trim()
 
@@ -175,7 +175,7 @@ angular.module('starter')
 
     console.log("x.value", x.value)
 
-    savedLocation.innerHTML = x.value
+    savedLocation.innerHTML = x.value.toUpperCase()
 
   }
 
@@ -226,9 +226,9 @@ angular.module('starter')
 
     let finalReceipt = FinalReceiptService.get()
 
-    finalReceipt.total = document.getElementById('total').value
+    finalReceipt.total = document.getElementById('total').value.trim()
 
-    finalReceipt.tax = document.getElementById('tax').value
+    finalReceipt.tax = document.getElementById('tax').value.trim()
 
     finalReceipt.dateOfPurchase = new Date()
 
@@ -356,8 +356,8 @@ angular.module('starter')
     let numberOfItems = document.getElementById('numberOfItems');
     let pricePerPound = document.getElementById('pricePerPound');
 
-    let finalProduct = document.getElementById(`text-productID-${index}`).value;
-    let finalPrice = document.getElementById(`text-price-${index}`).value;
+    let finalProduct = document.getElementById(`text-productID-${index}`).value.toUpperCase().trim();
+    let finalPrice = document.getElementById(`text-price-${index}`).value.trim();
 
     product.innerHTML = 'Product:' + finalProduct
     price.innerHTML = 'Price:' + finalPrice
@@ -383,13 +383,7 @@ angular.module('starter')
         pricePerPound.innerHTML = 'Price per lb: ' + document.getElementById(`text-pricePerPound-${index}`).value;
     }
 
-    newItem = {
-      product: finalProduct,
-      price: finalPrice,
-      memberSavings: xx,
-      numberOfItems: yy,
-      pricePerPound: zz
-    }
+
 
     // $state.go('inside.purchasedProduct');
   }
