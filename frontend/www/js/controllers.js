@@ -194,7 +194,7 @@ angular.module('starter')
     finalReceipt.total = document.getElementById('total').value
 
     finalReceipt.tax = document.getElementById('tax').value
-    // 
+    //
     // finalReceipt.total = finalReceipt.total.trim()
     // finalReceipt.tax = finalReceipt.tax.trim()
 
@@ -365,6 +365,12 @@ angular.module('starter')
 
   $scope.saveContinue = function() {
 
+    document.getElementById("product").innerHTML = "";
+    document.getElementById("price").innerHTML = "";
+    document.getElementById("memberSavings").innerHTML = "";
+    document.getElementById("numberOfItems").innerHTML = "";
+    document.getElementById("pricePerPound").innerHTML = "";
+
     document.getElementById("saveContinue").disabled = true;
 
     document.getElementById(selectedIndex).style.display = "none";
@@ -384,6 +390,18 @@ angular.module('starter')
     let test = FinalReceiptService.get()
 
     console.log('finalReceipt!!', test)
+
+  }
+
+  $scope.addProduct = function() {
+
+    document.getElementById('text-productID-0').value = ""
+    document.getElementById('text-price-0').value = ""
+    document.getElementById('text-numberOfItems-0').value = ""
+    document.getElementById('text-pricePerPound-0').value = ""
+    document.getElementById('text-memberSavings-0').value = ""
+
+    document.getElementById(0).style.display = "block";
 
   }
 
