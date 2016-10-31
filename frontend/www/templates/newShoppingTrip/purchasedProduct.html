@@ -18,27 +18,28 @@ Save & Continue
 <div ng-repeat="row in parsedReceipt">
 
   <div id={{$index}}>
-  <p id="productID-{{$index}}"> Product Id</p>
-  <textarea class="textbox" rows="2" cols="40">{{row[0]}}
+  <p id="productID-{{$index}}"> Product Id
+  <textarea id="text-productID-{{$index}}" class="textbox" rows="2" cols="40">{{row[0]}}
   </textarea>
+  </p>
 
   <p id="price-{{$index}}">Price $
-  <textarea class="textbox" rows="2" cols="5">{{row[1]}}
+  <textarea id="text-price-{{$index}}" class="textbox" rows="2" cols="5">{{row[1]}}
   </textarea>
   </p>
 
   <p id="numberOfItems-{{$index}}" class="productOptions">#
-  <textarea class="textbox" rows="2" cols="40">
+  <textarea id="text-numberOfItems-{{$index}}" value="" class="textbox" rows="2" cols="40">
   </textarea>
   </p>
 
   <p id="pricePerPound-{{$index}}" class="productOptions">Price per lb $
-  <textarea class="textbox" rows="2" cols="5">
+  <textarea id="text-pricePerPound-{{$index}}" value="" class="textbox" rows="2" cols="5">
   </textarea>
   </p>
 
   <p id="memberSavings-{{$index}}" class="productOptions">Member Savings $
-  <textarea class="textbox" rows="2" cols="5">
+  <textarea id="text-memberSavings-{{$index}}" value="" class="textbox" rows="2" cols="5">
   </textarea>
   </p>
 

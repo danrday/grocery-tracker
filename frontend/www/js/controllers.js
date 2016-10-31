@@ -114,7 +114,7 @@ angular.module('starter')
       _data.avatar = base64img;
       console.log("data:", _data);
       // Make an Ajax request
-      $.post('http://10.0.0.33:8080/api/base64upload', _data, function(result) {
+      $.post('http://10.0.0.143:8080/api/base64upload', _data, function(result) {
 
       console.log('result from server', result);
 
@@ -261,7 +261,7 @@ angular.module('starter')
 
   $scope.saveContinue = function() {
 
-    // let finalReceipt = FinalReceiptService.get()
+    let finalReceipt = FinalReceiptService.get()
     //
     // finalReceipt.location = savedLocation.innerHTML
     //
@@ -269,7 +269,7 @@ angular.module('starter')
     //
     // console.log("finalReceipt", finalReceipt)
     //
-    // FinalReceiptService.set(finalReceipt)
+    FinalReceiptService.set(finalReceipt)
 
   }
 
@@ -284,16 +284,29 @@ angular.module('starter')
     let numberOfItems = document.getElementById('numberOfItems');
     let pricePerPound = document.getElementById('pricePerPound');
 
-    product.innerHTML = document.getElementById(`productID-${index}`).value;
-    price.innerHTML = document.getElementById(`price-${index}`).value;
-    memberSavings.innerHTML = document.getElementById(`memberSavings-${index}`).value;
-    numberOfItems.innerHTML = document.getElementById(`numberOfItems-${index}`).value;
-    pricePerPound.innerHTML = document.getElementById(`pricePerPound-${index}`).value;
+    product.innerHTML = 'Product:' + document.getElementById(`text-productID-${index}`).value;
+    price.innerHTML = 'Price:' + document.getElementById(`text-price-${index}`).value;
 
-    console.log('pricePerPound', pricePerPound)
+    console.log("VALUE", document.getElementById(`text-memberSavings-${index}`).value)
 
+    let xx = document.getElementById(`text-memberSavings-${index}`).value
+    let yy = document.getElementById(`text-numberOfItems-${index}`).value
+    let zz = document.getElementById(`text-pricePerPound-${index}`).value
+    xx = xx.trim()
+    yy = yy.trim()
+    zz = zz.trim()
 
+    if (xx.length !== 0) {
+      memberSavings.innerHTML = 'Member Savings: ' + document.getElementById(`text-memberSavings-${index}`).value;
+    }
 
+    if (yy.length !== 0) {
+      numberOfItems.innerHTML = '# items: ' + document.getElementById(`text-numberOfItems-${index}`).value;
+    }
+
+    if (zz.length !== 0) {
+        pricePerPound.innerHTML = 'Price per lb: ' + document.getElementById(`text-pricePerPound-${index}`).value;
+    }
 
     // $state.go('inside.purchasedProduct');
   }
