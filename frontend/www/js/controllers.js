@@ -405,4 +405,23 @@ angular.module('starter')
 
   }
 
+  $scope.done = function () {
+    $state.go('inside.categories');
+  }
+
+})
+.controller('CategoriesCtrl', function($scope, FinalReceiptService, $state) {
+
+    let finalReceipt = FinalReceiptService.get()
+
+    $scope.purchases = finalReceipt.purchases
+
+    $scope.savedCategories = []
+
+    $scope.save = function (index) {
+      let cat = document.getElementById(`category-${index}`).value
+      finalReceipt.purchases[index].category = cat
+      $scope.savedCategories.push(cat)
+    }
+
 });;
