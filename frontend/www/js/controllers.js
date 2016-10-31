@@ -383,7 +383,13 @@ angular.module('starter')
         pricePerPound.innerHTML = 'Price per lb: ' + document.getElementById(`text-pricePerPound-${index}`).value;
     }
 
-
+    newItem = {
+      product: finalProduct,
+      price: finalPrice,
+      memberSavings: xx,
+      numberOfItems: yy,
+      pricePerPound: zz
+    }
 
     // $state.go('inside.purchasedProduct');
   }
