@@ -9,9 +9,15 @@
 
   <select id="catOption-{{$index}}">
   <option value="notSelected">Select Category</option>
-  <option ng-repeat="option in savedCategories" value="{{option}}">{{option}}</option>
+  <option ng-repeat="option in savedCategories track by $index" value="{{option}}">{{option}}</option>
   </select>
 
   <button type="button" ng-click="save($index)" >SAVE</button>
 
 </div>
+</div>
+
+<br>
+<br>
+<br>
+  <button type="button" ng-click="showResults()">Show Results</button>

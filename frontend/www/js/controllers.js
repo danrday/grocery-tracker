@@ -383,7 +383,13 @@ angular.module('starter')
         pricePerPound.innerHTML = 'Price per lb: ' + document.getElementById(`text-pricePerPound-${index}`).value;
     }
 
-
+    newItem = {
+      product: finalProduct,
+      price: finalPrice,
+      memberSavings: xx,
+      numberOfItems: yy,
+      pricePerPound: zz
+    }
 
     // $state.go('inside.purchasedProduct');
   }
@@ -463,6 +469,10 @@ angular.module('starter')
 })
 .controller('CategoriesCtrl', function($scope, FinalReceiptService, $state) {
 
+    $scope.showResults = function () {
+      $state.go('inside.showResults');
+    }
+
     let finalReceipt = FinalReceiptService.get()
 
     $scope.purchases = finalReceipt.purchases
@@ -470,7 +480,7 @@ angular.module('starter')
     $scope.savedCategories = []
 
     $scope.save = function (index) {
-      let cat = document.getElementById(`category-${index}`).value
+      let cat = document.getElementById(`category-${index}`).value.trim()
 
       $scope.savedCategories[index] = cat
 
@@ -479,7 +489,7 @@ angular.module('starter')
       console.log('e', e)
         console.log('e.options', e.options)
 
-      let selectedOption = e.options[e.selectedIndex].value;
+      let selectedOption = e.options[e.selectedIndex].value.trim();
 
       if (selectedOption !== "notSelected") {
 
@@ -497,5 +507,40 @@ angular.module('starter')
       console.log('finalReceipt!!', test)
 
     }
+
+})
+.controller('ResultsCtrl', function($scope, FinalReceiptService, $state) {
+
+  let x = FinalReceiptService.get()
+
+  console.log("results:", x)
+
+  let purchases = x.purchases
+
+  let categories = []
+
+  purchases.forEach(function(purchase){
+    categories.push(purchase.category)
+  })
+
+  categories = categories.sort()
+
+  console.log("categories:", categories)
+//
+  let array_elements = categories
+  var current = null;
+    var cnt = 0;
+    for (var i = 0; i <= array_elements.length; i++) {
+        if (array_elements[i] != current) {
+            if (cnt > 0) {
+                console.log(current + ' comes --> ' + cnt + ' times<br>');
+            }
+            current = array_elements[i];
+            cnt = 1;
+        } else {
+            cnt++;
+        }
+    }
+
 
 });;
