@@ -229,6 +229,9 @@ angular.module('starter')
     finalReceipt.total = document.getElementById('total').value
 
     finalReceipt.tax = document.getElementById('tax').value
+
+    finalReceipt.dateOfPurchase = new Date()
+
     //
     // finalReceipt.total = finalReceipt.total.trim()
     // finalReceipt.tax = finalReceipt.tax.trim()
@@ -391,6 +394,20 @@ angular.module('starter')
     // $state.go('inside.purchasedProduct');
   }
 
+  let upcCode = null;
+
+  $scope.scanUPC = function () {
+    $cordovaBarcodeScanner
+      .scan()
+      .then(function(barcodeData) {
+        console.log("barcode data:", barcodeData)
+          document.getElementById('scanUPC').style.display = "none";
+          upcCode = barcodeData.text
+        // Success! Barcode data is here
+      }, function(error) {
+        // An error occurred
+      });
+  }
 
   $scope.delete = function(index) {
     document.getElementById(index).style.display = "none";
@@ -398,8 +415,10 @@ angular.module('starter')
 
   $scope.saveContinue = function() {
 
+    //reset scanUPC
     document.getElementById('scanUPC').style.display = "block";
 
+    //reset display
     document.getElementById("product").innerHTML = "";
     document.getElementById("price").innerHTML = "";
     document.getElementById("memberSavings").innerHTML = "";
@@ -411,6 +430,8 @@ angular.module('starter')
     document.getElementById(selectedIndex).style.display = "none";
 
     let finalReceipt = FinalReceiptService.get()
+
+    newItem.upcCode = upcCode
 
     finalReceipt.purchases.push(newItem)
     //
@@ -440,19 +461,6 @@ angular.module('starter')
 
   }
 
-  let upcCode = null;
-
-  $scope.scanUPC = function () {
-    $cordovaBarcodeScanner
-      .scan()
-      .then(function(barcodeData) {
-        console.log("barcode data:", barcodeData)
-          document.getElementById('scanUPC').style.display = "none";
-        // Success! Barcode data is here
-      }, function(error) {
-        // An error occurred
-      });
-  }
 
   $scope.done = function () {
     $state.go('inside.categories');
@@ -490,7 +498,9 @@ angular.module('starter')
 
       FinalReceiptService.set(finalReceipt)
 
-      console.log("finalReceipt:::", finalReceipt)
+      let test = FinalReceiptService.get()
+
+      console.log('finalReceipt!!', test)
 
     }
 
