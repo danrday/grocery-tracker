@@ -1,11 +1,18 @@
-Store address as it appears on receipt:
+Store name & address as it appears on receipt:
 
 
 <h3 id="location"></h3>
 
+<textarea id="storeName" class="textbox" rows="1" cols="50">Kroger
+</textarea>
+
+<br>
+
 <button id="saveContinue" ng-click="saveContinue()" disabled class="button button-full button-positive">
 Save & Continue
 </button>
+
+
 
 <div ng-repeat="row in parsedReceipt.parsed">
 
