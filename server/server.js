@@ -11,6 +11,8 @@ var User        = require('./app/models/user'); // get the mongoose model
 var port        = process.env.PORT || 8080;
 var jwt         = require('jwt-simple');
 
+var db          = require('./db');
+
 
 // receipt parsing
 var tesseract   = require('node-tesseract');
