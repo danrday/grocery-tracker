@@ -583,6 +583,9 @@ let consolidatedCategories = []
 let dataset = []
 
 
+var legendColors = d3.scaleOrdinal(d3.schemeCategory10);
+
+
   var current = null;
     var cnt = 0;
 
@@ -599,7 +602,8 @@ let dataset = []
                 let thisCategory = {
                   category: current,
                   numTimes: cnt,
-                  totalCost: cost
+                  totalCost: cost.toFixed(2),
+                  color: legendColors(i)
                 }
 
                 dataset.push({label: current, count: cost})
@@ -632,7 +636,8 @@ let dataset = []
         let thisCategory = {
           category: current,
           numTimes: cnt,
-          totalCost: cost
+          totalCost: cost.toFixed(2),
+          color: legendColors(i)
         }
 
         consolidatedCategories.push(thisCategory)
@@ -717,11 +722,11 @@ let dataset = []
 
 
 
-    var width = 250;
-    var height = 250;
+    var width = 300;
+    var height = 300;
     var radius = Math.min(width, height) / 2;
 
-    var color = d3.scaleOrdinal(d3.schemeCategory20b);
+    var color = d3.scaleOrdinal(d3.schemeCategory10);
 
     var svg = d3.select('#chart')
       .append('svg')
@@ -746,7 +751,7 @@ let dataset = []
       .attr('d', arc)
       .attr('fill', function(d) {
         return color(d.data.label);
-      });
+      })
 
 
 

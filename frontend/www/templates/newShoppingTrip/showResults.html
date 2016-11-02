@@ -1,9 +1,7 @@
-<p>Results:</p>
-
-<br>
+<p>Spending by category:</p>
 
 <div ng-repeat="row in results">
- <p>{{row.category}} : ${{row.totalCost}} ({{row.percentOfTotal}}%)</p>
+ <p style="background-color:{{row.color}}">{{row.category}} ({{row.numTimes}} items) : ${{row.totalCost}} ({{row.percentOfTotal}}%)</p>
 </div>
 
 <div id="chart"></div>
