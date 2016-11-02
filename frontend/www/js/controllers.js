@@ -647,9 +647,20 @@ let consolidatedCategories = []
 
     console.log('consolidatedCategories', consolidatedCategories)
 
+
+    function comparePercentOfTotal(a,b) {
+      if (a.totalCost < b.totalCost)
+        return -1;
+      if (a.totalCost > b.totalCost)
+        return 1;
+      return 0;
+    }
+
+  consolidatedCategories = consolidatedCategories.sort(comparePercentOfTotal);
+
+
     $scope.results = consolidatedCategories
 
-    $scope.individualItems = x.purchases
 
 
 //
