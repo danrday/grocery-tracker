@@ -579,6 +579,12 @@ let totalReceiptCost = 0;
 
 let consolidatedCategories = []
 
+//for d3 pie graph
+let dataset = []
+
+
+var legendColors = d3.scaleOrdinal(d3.schemeCategory10);
+
 
   var current = null;
     var cnt = 0;
@@ -596,8 +602,11 @@ let consolidatedCategories = []
                 let thisCategory = {
                   category: current,
                   numTimes: cnt,
-                  totalCost: cost
+                  totalCost: cost.toFixed(2),
+                  color: legendColors(i)
                 }
+
+                dataset.push({label: current, count: cost})
 
                 consolidatedCategories.push(thisCategory)
 
@@ -627,10 +636,13 @@ let consolidatedCategories = []
         let thisCategory = {
           category: current,
           numTimes: cnt,
-          totalCost: cost
+          totalCost: cost.toFixed(2),
+          color: legendColors(i)
         }
 
         consolidatedCategories.push(thisCategory)
+
+        dataset.push({label: current, count: cost})
 
     }
 
@@ -660,6 +672,16 @@ let consolidatedCategories = []
 
 
     $scope.results = consolidatedCategories
+
+
+
+    // let dataset = [
+    //   { label: 'Abulia', count: 10 },
+    //   { label: 'Betelgeuse', count: 20 },
+    //   { label: 'Cantaloupe', count: 30 },
+    //   { label: 'Dijkstra', count: 40 }
+    // ];
+
 
 
 
@@ -697,6 +719,39 @@ let consolidatedCategories = []
     //
     //   }
     // }
+
+
+
+    var width = 300;
+    var height = 300;
+    var radius = Math.min(width, height) / 2;
+
+    var color = d3.scaleOrdinal(d3.schemeCategory10);
+
+    var svg = d3.select('#chart')
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+      .append('g')
+      .attr('transform', 'translate(' + (width / 2) +
+        ',' + (height / 2) + ')');
+
+    var arc = d3.arc()
+      .innerRadius(0)
+      .outerRadius(radius);
+
+    var pie = d3.pie()
+      .value(function(d) { return d.count; })
+      .sort(null);
+
+    var path = svg.selectAll('path')
+      .data(pie(dataset))
+      .enter()
+      .append('path')
+      .attr('d', arc)
+      .attr('fill', function(d) {
+        return color(d.data.label);
+      })
 
 
 
