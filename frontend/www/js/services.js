@@ -113,6 +113,16 @@ angular.module('starter')
             },
             set: function(value) {
                 finalReceipt = value;
+            },
+            reset: function() {
+              finalReceipt = {
+                storeName: "",
+                location: "",
+                dateOfPurchase: "",
+                tax: "",
+                total: "",
+                purchases: []
+              }
             }
         };
     })
