@@ -640,7 +640,7 @@ let consolidatedCategories = []
 
     consolidatedCategories.forEach(function(category) {
 
-      let percentOfTotal = category.totalCost / totalReceiptCost
+      let percentOfTotal = ((category.totalCost / totalReceiptCost) * 100).toFixed(1)
 
       category.percentOfTotal = percentOfTotal
 });
