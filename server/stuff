@@ -18,3 +18,27 @@ var process = function(req, res) {
         }
     });
 };
+
+
+
+
+
+
+///
+
+// finishedObject = {
+//   dateOfPurchase: date object,
+//   location: string,
+//   purchases: [{
+//     category: string,
+//     memberSavings: number,
+//     numberOfItems: number,
+//     price: number,
+//     pricePerPound: number,
+//     product: string,
+//     upcCode: number
+//   }],
+//   storeName: string,
+//   tax: number,
+//   total: number
+// }

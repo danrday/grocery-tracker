@@ -513,34 +513,180 @@ angular.module('starter')
 
   let x = FinalReceiptService.get()
 
+  // let zzz = JSON.stringify(x)
+  //
+  // console.log('json stringify', zzz)
+
+
+// $.ajax('http://10.0.0.143:8080/api/testing'), {
+//     method: 'POST',
+//     data: {
+//         name: newName
+//     }
+// })
+// .then(
+//     function success(data) {
+//         console.log("success: " data)
+//     },
+//
+//     function fail(data, status) {
+//         alert('Request failed.  Returned status of ' + status);
+//     }
+// );
+
   console.log("results:", x)
+
+  let zzz = JSON.stringify(x)
+
+
+  // $.post('http://10.0.0.143:8080/api/testing', zzz, function(result) {
+  //
+  // console.log('result from server', result);
+  //
+  // });
+
+  console.log('stringify', zzz)
 
   let purchases = x.purchases
 
-  let categories = []
+  // let categories = []
+  //
+  // purchases.forEach(function(purchase){
+  //   categories.push(purchase.category)
+  // })
+  //
+  // categories = categories.sort()
+  //
+  // console.log("categories:", categories)
+  //
+  // let array_elements = categories
 
-  purchases.forEach(function(purchase){
-    categories.push(purchase.category)
-  })
+  // x.purchases = x.purchases.sort()
 
-  categories = categories.sort()
+  function compare(a,b) {
+  if (a.category < b.category)
+    return -1;
+  if (a.category > b.category)
+    return 1;
+  return 0;
+}
 
-  console.log("categories:", categories)
-//
-  let array_elements = categories
+x.purchases = x.purchases.sort(compare);
+
+console.log('x.purchases', x.purchases)
+
+let totalReceiptCost = 0;
+
+let consolidatedCategories = []
+
+
   var current = null;
     var cnt = 0;
-    for (var i = 0; i <= array_elements.length; i++) {
-        if (array_elements[i] != current) {
+
+    var cost = 0;
+
+    for (var i = 0; i < x.purchases.length; i++) {
+
+        if (x.purchases[i].category != current) {
+
             if (cnt > 0) {
-                console.log(current + ' comes --> ' + cnt + ' times<br>');
+
+                console.log(current + ' comes --> ' + cnt + ' times, with total cost' + cost);
+
+                let thisCategory = {
+                  category: current,
+                  numTimes: cnt,
+                  totalCost: cost
+                }
+
+                consolidatedCategories.push(thisCategory)
+
             }
-            current = array_elements[i];
+
+            current = x.purchases[i].category;
+
             cnt = 1;
+
+            cost = x.purchases[i].price
+
+            totalReceiptCost += cost
+
         } else {
             cnt++;
+
+            cost += x.purchases[i].price
+
+            totalReceiptCost += x.purchases[i].price
+
         }
     }
+
+    if (cnt > 0) {
+        console.log(current + ' comes --> ' + cnt + ' times, with total cost' + cost);
+
+        let thisCategory = {
+          category: current,
+          numTimes: cnt,
+          totalCost: cost
+        }
+
+        consolidatedCategories.push(thisCategory)
+
+    }
+
+    console.log("totalReceiptCost", totalReceiptCost)
+
+
+
+    consolidatedCategories.forEach(function(category) {
+
+      let percentOfTotal = ((category.totalCost / totalReceiptCost) * 100).toFixed(1)
+
+      category.percentOfTotal = percentOfTotal
+});
+
+    console.log('consolidatedCategories', consolidatedCategories)
+
+    $scope.results = consolidatedCategories
+
+    $scope.individualItems = x.purchases
+
+
+//
+  // let array_elements = categories
+  //
+  // let eachElementListedOnce = {}
+  //
+  // var current = null;
+  //   var cnt = 0;
+  //
+  //   for (var i = 0; i <= array_elements.length; i++) {
+  //
+  //       if (array_elements[i] != current) {
+  //
+  //           if (cnt > 0) {
+  //
+  //               console.log(current + ' comes --> ' + cnt + ' times<br>');
+  //               eachElementListedOnce.current = cnt
+  //
+  //           }
+  //
+  //           current = array_elements[i];
+  //           cnt = 1;
+  //
+  //       } else {
+  //           cnt++;
+  //       }
+  //   }
+    //
+    // let eachCategory = Object.keys(eachElementListedOnce)
+    //
+    // for (i=0; i<eachCategory.length; i++) {
+    //   for (i=0; i<eachCategory[i]; i++) {
+    //
+    //   }
+    // }
+
 
 
 });;
