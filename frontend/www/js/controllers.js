@@ -78,10 +78,12 @@ angular.module('starter')
   $scope.date = date
   console.log(date.toString())
 })
-.controller('PictureCtrl', function($scope, Upload, $cordovaCamera, $state, ReceiptService) {
+.controller('PictureCtrl', function($scope, Upload, $cordovaCamera, $state, ReceiptService, FinalReceiptService) {
   console.log("PICTURE CONTROLLER")
 
   $scope.image= "http://www.downgraf.com/wp-content/uploads/2014/09/01-progress.gif"
+
+  FinalReceiptService.reset()
 
   let image;
   let imageTextToUpload;
