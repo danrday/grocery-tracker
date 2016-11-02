@@ -577,6 +577,8 @@ console.log('x.purchases', x.purchases)
 
 let totalReceiptCost = 0;
 
+let consolidatedCategories = []
+
 
   var current = null;
     var cnt = 0;
@@ -590,6 +592,14 @@ let totalReceiptCost = 0;
             if (cnt > 0) {
 
                 console.log(current + ' comes --> ' + cnt + ' times, with total cost' + cost);
+
+                let thisCategory = {
+                  category: current,
+                  numTimes: cnt,
+                  totalCost: cost
+                }
+
+                consolidatedCategories.push(thisCategory)
 
             }
 
@@ -613,9 +623,29 @@ let totalReceiptCost = 0;
 
     if (cnt > 0) {
         console.log(current + ' comes --> ' + cnt + ' times, with total cost' + cost);
+
+        let thisCategory = {
+          category: current,
+          numTimes: cnt,
+          totalCost: cost
+        }
+
+        consolidatedCategories.push(thisCategory)
+
     }
 
     console.log("totalReceiptCost", totalReceiptCost)
+
+
+
+    consolidatedCategories.forEach(function(category) {
+
+      let percentOfTotal = category.totalCost / totalReceiptCost
+
+      category.percentOfTotal = percentOfTotal
+});
+
+    console.log('consolidatedCategories', consolidatedCategories)
 
 
 //
