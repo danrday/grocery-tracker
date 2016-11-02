@@ -649,6 +649,8 @@ let consolidatedCategories = []
 
     $scope.results = consolidatedCategories
 
+    $scope.individualItems = x.purchases
+
 
 //
   // let array_elements = categories
