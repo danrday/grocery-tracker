@@ -12,7 +12,7 @@ var port        = process.env.PORT || 8080;
 var jwt         = require('jwt-simple');
 
 var db          = require('./db');
-
+var pg          = require('pg');
 
 // receipt parsing
 var tesseract   = require('node-tesseract');
@@ -21,7 +21,16 @@ var fs          = require('fs');
 
 var receiptParser = require('./app/models/receipt-parser').receiptParser
 
-// console.log('typeof receiptparser', receiptParser)
+//DB
+const knexconfig = require("./knexfile.js").development;
+const knex = require('knex')(knexconfig);
+
+//pg
+// pg.defaults.ssl = process.env.NODE_ENV === 'production';
+// const databaseURL = process.env.DATABASE_URL || 'postgres://localhost:5432/grocery-tracker';
+// const client = new pg.Client(databaseURL);
+// client.connect((err) => console.error(err));
+
 
 
 //
@@ -86,6 +95,86 @@ require('./config/passport')(passport);
 var apiRoutes = express.Router();
 
 apiRoutes.post("/ocr", convert)
+
+/////TESTING
+
+// finishedObject = {
+//   dateOfPurchase: date object,
+//   location: string,
+//   purchases: [{
+//     category: string,
+//     memberSavings: number,
+//     numberOfItems: number,
+//     price: number,
+//     pricePerPound: number,
+//     product: string,
+//     upcCode: number
+//   }],
+//   storeName: string,
+//   tax: number,
+//   total: number
+// }
+
+
+
+apiRoutes.post("/testing", (req, res) => {
+
+  console.log('req.body', req.body)
+
+
+
+//   let r = req.body
+//
+//   userName = "Joe"
+//
+//   let user_id;
+//
+//   console.log('req.body', req.body)
+//
+// 	knex("user")
+// 		.insert({user_name: userName})
+//     .returning('user_id')
+// 		.then((id) => {
+//       user_id = id;
+//       knex('stores')
+//         .insert({
+//           company_name: r.storeName,
+//           store_address: r.location
+//         })
+//         .returning('location_id')
+//         .then((id) => {
+//           console.log("location id", id)
+//           res.status(200).json(id[0])
+// 		})
+// });
+
+})
+
+//
+// apiRoutes.post("/testing", (req, res) => {
+//
+// 	knex("user")
+// 		.insert({user_name: userName})
+//     .returning('user_id')
+// 		.then((user_id) => {
+//       knex('receipt')
+//         .select()
+//         .where('location_id', data[0])
+//         .then( data => {
+//           res.status(200).json(data[0])
+//         } )
+// 		})
+// });
+
+
+app.get("/api/getStores", (req, res) => {
+	knex.select('location_id', 'company_name', 'store_address').from('stores')
+		.then((data) => {
+  			console.log(data)
+		})
+});
+
+/////end TESTING
 
 // create a new user account (POST http://localhost:8080/api/signup)
 apiRoutes.post('/signup', function(req, res) {
@@ -183,6 +272,8 @@ console.log('REQ BODY:', req.body)
 
 });
 
+let userName;
+
 
 // route to a restricted info (GET http://localhost:8080/api/memberinfo)
 apiRoutes.get('/memberinfo', passport.authenticate('jwt', { session: false}), function(req, res) {
@@ -197,6 +288,7 @@ apiRoutes.get('/memberinfo', passport.authenticate('jwt', { session: false}), fu
         if (!user) {
           return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
         } else {
+          userName = user.name
           res.json({success: true, msg: 'Logged in as: ' + user.name});
         }
     });
