@@ -647,6 +647,8 @@ let consolidatedCategories = []
 
     console.log('consolidatedCategories', consolidatedCategories)
 
+    $scope.results = consolidatedCategories
+
 
 //
   // let array_elements = categories

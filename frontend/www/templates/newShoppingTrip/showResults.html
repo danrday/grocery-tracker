@@ -1,1 +1,21 @@
-<p>Results</p>
+<p>Results:</p>
+
+<br>
+
+<div ng-repeat="row in results">
+ <p>{{row.category}} : ${{row.totalCost}} ({{row.percentOfTotal}}%)</p>
+</div>
+
+<br>
+Details:
+
+<div ng-repeat="row in results">
+
+  <p>Category: {{row.category}}</p>
+  <p>Items: {{row.numTimes}} </p>
+  <p>Total cost: ${{row.totalCost}}</p>
+  <p>Percent of Total: {{row.percentOfTotal}}%</p>
+
+  <br>
+
+</div>
