@@ -561,26 +561,61 @@ angular.module('starter')
   //
   // let array_elements = categories
 
+  // x.purchases = x.purchases.sort()
+
+  function compare(a,b) {
+  if (a.category < b.category)
+    return -1;
+  if (a.category > b.category)
+    return 1;
+  return 0;
+}
+
+x.purchases = x.purchases.sort(compare);
+
+console.log('x.purchases', x.purchases)
+
+let totalReceiptCost = 0;
+
+
   var current = null;
     var cnt = 0;
 
-    for (var i = 0; i <= x.purchases.length; i++) {
+    var cost = 0;
+
+    for (var i = 0; i < x.purchases.length; i++) {
 
         if (x.purchases[i].category != current) {
 
             if (cnt > 0) {
 
-                console.log(current + ' comes --> ' + cnt + ' times<br>');
+                console.log(current + ' comes --> ' + cnt + ' times, with total cost' + cost);
 
             }
 
             current = x.purchases[i].category;
+
             cnt = 1;
+
+            cost = x.purchases[i].price
+
+            totalReceiptCost += cost
 
         } else {
             cnt++;
+
+            cost += x.purchases[i].price
+
+            totalReceiptCost += x.purchases[i].price
+
         }
     }
+
+    if (cnt > 0) {
+        console.log(current + ' comes --> ' + cnt + ' times, with total cost' + cost);
+    }
+
+    console.log("totalReceiptCost", totalReceiptCost)
 
 
 //
