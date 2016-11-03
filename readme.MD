@@ -23,4 +23,4 @@ ERD
 
 
 
-[Main Menu](Main Menu)<img src="/screengrabs/IMG_5786.jpg" height="200">
+[Main Menu](Main Menu)<img src="/screengrabs/IMG_5786.jpg" height="320">
