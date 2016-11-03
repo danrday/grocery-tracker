@@ -1,6 +1,6 @@
 # grocery tracker
 
-![ERD](/ERD/ERD.png?raw=true "ERD")
+
 
 Main Menu
 ![](/screengrabs/IMG_5786.jpg =250x)
@@ -17,3 +17,6 @@ Select Categories for products
 Breakdown of spending by category
 ![](/screengrabs/IMG_5791.jpg =250x)
 ![](/screengrabs/IMG_5781.jpg =250x)
+
+ERD
+![ERD](/ERD/ERD.png?raw=true "ERD")
