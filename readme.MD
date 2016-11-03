@@ -22,4 +22,5 @@ ERD
 ![ERD](/ERD/ERD.png?raw=true "ERD")
 
 
-![test](./screengrabs/IMG_5786.jpg?raw=true =250x)
+
+[angular ](angular.png)<img src="/screengrabs/IMG_5786.jpg" height="40">
