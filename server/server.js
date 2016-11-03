@@ -116,10 +116,16 @@ apiRoutes.post("/ocr", convert)
 // }
 
 
+apiRoutes.post("/testing2", (req, res) => {
 
-apiRoutes.post("/testing", (req, res) => {
+  console.log('req.body testing2', req.body)
 
-  console.log('req.body', req.body)
+});
+
+
+apiRoutes.post("/testing1", (req, res) => {
+
+  console.log('req.body testing1', req.body)
 
 
 
@@ -194,6 +200,7 @@ apiRoutes.post('/signup', function(req, res) {
     });
   }
 });
+
 
 // route to authenticate a user (POST http://localhost:8080/api/authenticate)
 apiRoutes.post('/authenticate', function(req, res) {
@@ -289,7 +296,7 @@ apiRoutes.get('/memberinfo', passport.authenticate('jwt', { session: false}), fu
           return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
         } else {
           userName = user.name
-          res.json({success: true, msg: 'Logged in as: ' + user.name});
+          res.json({success: true, msg: user.name});
         }
     });
   } else {
