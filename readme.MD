@@ -20,3 +20,6 @@ Breakdown of spending by category
 
 ERD
 ![ERD](/ERD/ERD.png?raw=true "ERD")
+
+
+![ERD](./screengrabs/IMG_5786.jpg?raw=true "ERD")
