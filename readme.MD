@@ -22,4 +22,4 @@ ERD
 ![ERD](/ERD/ERD.png?raw=true "ERD")
 
 
-![ERD](./screengrabs/IMG_5786.jpg?raw=true "ERD" =250x)
+![test](./screengrabs/IMG_5786.jpg =250x)
