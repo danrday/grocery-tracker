@@ -1,0 +1,28 @@
+finalObj = {
+  user: string,
+  dateOfPurchase: date object,
+  location: string,
+  purchases: [{
+    category: string,
+    memberSavings: number,
+    numberOfItems: number,
+    price: number,
+    pricePerPound: number,
+    product: string,
+    upcCode: number
+  }],
+  storeName: string,
+  tax: number,
+  total: number
+
+
+  let receiptObj = finalObj
+
+  delete receiptObj.purchases;
+
+  push up JSON.stringify(receiptObj)
+
+
+    for (i=0; i<finalObj.purchases.length; i++) {
+      push up JSON.stringify(finalObj.purchases[i])
+    }

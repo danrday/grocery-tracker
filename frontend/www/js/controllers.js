@@ -40,13 +40,16 @@ angular.module('starter')
   };
 })
 
-.controller('InsideCtrl', function($scope, AuthService, API_ENDPOINT, $http, $state) {
+.controller('InsideCtrl', function($scope, AuthService, UserNameService, API_ENDPOINT, $http, $state) {
   // $scope.destroySession = function() {
   //   AuthService.logout();
   // };
 
   $http.get(API_ENDPOINT.url + '/memberinfo').then(function(result) {
     $scope.memberinfo = result.data.msg;
+
+    UserNameService.set(result.data.msg)
+
   })
 
   // $scope.getInfo = function() {
@@ -539,6 +542,8 @@ angular.module('starter')
   console.log("results:", x)
 
   let zzz = JSON.stringify(x)
+
+
 
 
   // $.post('http://10.0.0.143:8080/api/testing', zzz, function(result) {

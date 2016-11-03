@@ -82,6 +82,19 @@ angular.module('starter')
   };
 })
 
+.service('UserNameService', function () {
+        let userName;
+
+        return {
+            get: function () {
+                return userName;
+            },
+            set: function(value) {
+                userName = value;
+            }
+        };
+    })
+
 .service('ReceiptService', function () {
   //service to save initial parsed text into array
         let receipt;
