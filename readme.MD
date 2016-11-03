@@ -5,7 +5,7 @@
 
 #steps to parse your receipt
 
-[Main Menu]<img src="/screengrabs/IMG_5786.jpg" height="320">(/screengrabs/IMG_5786.jpg)
+[Main Menu](/screengrabs/IMG_5786.jpg)<br><img src="/screengrabs/IMG_5786.jpg" height="320">
 
 [Take Picture of Receipt](./screengrabs/IMG_5789.jpg)<img src="./screengrabs/IMG_5789.jpg" height="320">
 
