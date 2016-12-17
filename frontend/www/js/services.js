@@ -97,7 +97,7 @@ angular.module('starter')
 
 .service('ReceiptService', function () {
   //service to save initial parsed text into array
-        let receipt;
+        let receipt = [['placeholder', 0, 'placeholder']];
 
         return {
             get: function () {
