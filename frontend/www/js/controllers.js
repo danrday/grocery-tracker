@@ -119,7 +119,7 @@ angular.module('starter')
       _data.avatar = base64img;
       console.log("data:", _data);
       // Make an Ajax request
-      $.post('http://10.0.0.143:8080/api/base64upload', _data, function(result) {
+      $.post('http://192.168.1.165:8080/api/base64upload', _data, function(result) {
 
       console.log('result from server', result);
 
@@ -276,6 +276,10 @@ angular.module('starter')
     if (y.length !== 1) {
       onlyProductsWithPrices.push(y)
     }
+  }
+
+  if (onlyProductsWithPrices.length === 0) {
+    onlyProductsWithPrices.push(['', 0, ''])
   }
 
   $scope.parsedReceipt = onlyProductsWithPrices

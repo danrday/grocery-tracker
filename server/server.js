@@ -127,11 +127,17 @@ apiRoutes.post("/testing1", (req, res) => {
 
   console.log('req.body testing1', req.body)
 
-
+  let userName = "Joe"
 
 //   let r = req.body
 //
 //   userName = "Joe"
+
+knex("user")
+		.insert({user_name: userName})
+    .returning('user_id')
+    .then((id) => console.log('id', id
+    ))
 //
 //   let user_id;
 //
@@ -319,6 +325,7 @@ getToken = function (headers) {
 
 // connect the api routes under /api/*
 app.use('/api', apiRoutes);
+
 
 // Start the server
 app.listen(port);
